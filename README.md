@@ -14,7 +14,7 @@ I'm a a young moroccan 🇲🇦. I want to learn more about coding, design, data
 - MySQL/ Git/ networking/ Html/ CSS
 
 ## Projects
-- My Portfolio : 
+- My Portfolio : https://elmehdi02.github.io/Bensouda-portfolio/
 - ALX Project 
 
 ## Education
