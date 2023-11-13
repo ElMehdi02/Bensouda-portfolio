@@ -15,9 +15,9 @@ if (!$conn) {
 
 // Process form data
 if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $message = mysqli_real_escape_string($conn, $_POST['message']);
 
     // Insert data into the database
     $sql = "INSERT INTO about (full_name, email, message) VALUES ('$name', '$email', '$message')";
@@ -32,9 +32,20 @@ if (isset($_POST['submit'])) {
         font-size: 1rem;
         width: 27%;
         margin-left: 320px;'
-        >Your message are successfully sent!</p>";
+        >Your message has been successfully sent!</p>";
     } else {
-        echo "Error: " . mysqli_error($conn);
+        // Log the error or display a generic message
+        echo "<p style='
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        font-size: 1rem;
+        width: 27%;
+        margin-left: 320px;'
+        >Oops! Something went wrong. Please try again later.</p>";
+        error_log("Error: " . mysqli_error($conn));
     }
 }
 
