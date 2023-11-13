@@ -21,7 +21,7 @@ I'm a a young moroccan 🇲🇦. I want to learn more about coding, design, data
 - ALX Student, this is my first repository as a full-stack engineer
 
 ## Find Me Online
-- [LinkedIn](https://www.linkedin.com/in/el-mehdi-bensouda)
+- [LinkedIn](https://www.linkedin.com/in/el-mehdi-bensouda-b754481b1/)
 - [Twitter](https://twitter.com/el_bensouda)
 
 Feel free to reach out to me through any of these channels. I'm always interested in connecting with fellow developers and professionals in the field.
