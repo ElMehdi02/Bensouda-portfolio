@@ -1,4 +1,4 @@
-# Hi there, I'm Bensouda El Mehdi! ❤
+# Hi 👋🏼, I'm Bensouda El Mehdi! ❤
 
 ## About Me
 I'm a a young moroccan 🇲🇦. I want to learn more about coding, design, data science, and artificial intelligence, as well as everything related to technology. In the future, I aim to keep learning and growing to achieve my career goals. I enjoy coding and exploring new things like different programming languages.
