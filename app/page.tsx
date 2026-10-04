@@ -423,16 +423,6 @@ function AnimatedDataBackground() {
 
 /* =========================================================
    HERO DATA ANIMATION
-
-   This is layered over your existing data-bg.png.
-
-   It adds:
-   - moving numbers
-   - changing values
-   - moving plots
-   - animated bar charts
-   - moving particles
-   - animated data wave
 ========================================================= */
 
 function HeroDataAnimation() {
@@ -447,13 +437,7 @@ function HeroDataAnimation() {
 
     if (!ctx) return;
 
-    /*
-      This fixes the GitHub TypeScript build error:
-
-      'canvas' is possibly 'null'
-
-      Everything below uses safeCanvas.
-    */
+    
     const safeCanvas = canvas;
     const context: CanvasRenderingContext2D = ctx;
 
@@ -590,9 +574,7 @@ function HeroDataAnimation() {
                 item.phase
             ) * 3;
 
-          /*
-            Change some numbers periodically.
-          */
+          
           if (
             Math.floor(time * 18) %
               (70 + index * 3) ===
@@ -690,9 +672,7 @@ function HeroDataAnimation() {
         h
       );
 
-      /*
-        Horizontal grid lines.
-      */
+      
       for (let i = 1; i <= 3; i++) {
         context.beginPath();
 
@@ -712,9 +692,7 @@ function HeroDataAnimation() {
         context.stroke();
       }
 
-      /*
-        Animated line.
-      */
+      
       context.beginPath();
 
       for (
@@ -972,9 +950,7 @@ function HeroDataAnimation() {
       drawFloatingNumbers();
       drawLabels();
 
-      /*
-        Hide larger chart panels on small screens.
-      */
+    
       if (width > 700) {
         drawBarChart(
           width * 0.86,
