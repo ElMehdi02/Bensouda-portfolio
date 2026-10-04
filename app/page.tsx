@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 
 const basePath =
   process.env.NODE_ENV === "production" ? "/Bensouda-portfolio" : "";
@@ -124,14 +125,7 @@ const skills = [
     title: "Development",
     description:
       "Building software and web projects while strengthening programming fundamentals.",
-    items: [
-      "JavaScript",
-      "Java",
-      "C",
-      "Next.js",
-      "React",
-      "TypeScript",
-    ],
+    items: ["JavaScript", "Java", "C", "Next.js", "React", "TypeScript"],
   },
   {
     number: "04",
@@ -157,7 +151,7 @@ const marqueeSkills = [
 ];
 
 /* =========================================================
-   BACKGROUND FOR ALL OTHER SECTIONS
+   ANIMATED BACKGROUND FOR THE REST OF THE SITE
 ========================================================= */
 
 function AnimatedDataBackground() {
@@ -165,11 +159,18 @@ function AnimatedDataBackground() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
+
     if (!ctx) return;
 
+    /*
+      Important:
+      TypeScript now knows safeCanvas can never be null.
+    */
+    const safeCanvas = canvas;
     const context: CanvasRenderingContext2D = ctx;
 
     let animationFrame = 0;
@@ -203,11 +204,7 @@ function AnimatedDataBackground() {
       const spacing = width < 768 ? 65 : 50;
 
       for (let x = -spacing; x < width + spacing; x += spacing) {
-        for (
-          let y = height * 0.35;
-          y < height + spacing;
-          y += spacing
-        ) {
+        for (let y = height * 0.35; y < height + spacing; y += spacing) {
           points.push({
             x: x + Math.random() * 12,
             baseY: y,
@@ -237,11 +234,11 @@ function AnimatedDataBackground() {
 
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      safeCanvas.width = width * dpr;
+      safeCanvas.height = height * dpr;
 
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
+      safeCanvas.style.width = `${width}px`;
+      safeCanvas.style.height = `${height}px`;
 
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
 
@@ -379,7 +376,12 @@ function AnimatedDataBackground() {
     }
 
     function draw() {
-      context.clearRect(0, 0, width, height);
+      context.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
 
       time += 0.012;
 
@@ -388,17 +390,25 @@ function AnimatedDataBackground() {
       drawPoints();
       drawNumbers();
 
-      animationFrame = requestAnimationFrame(draw);
+      animationFrame =
+        requestAnimationFrame(draw);
     }
 
     resizeCanvas();
     draw();
 
-    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener(
+      "resize",
+      resizeCanvas
+    );
 
     return () => {
       cancelAnimationFrame(animationFrame);
-      window.removeEventListener("resize", resizeCanvas);
+
+      window.removeEventListener(
+        "resize",
+        resizeCanvas
+      );
     };
   }, []);
 
@@ -412,8 +422,17 @@ function AnimatedDataBackground() {
 }
 
 /* =========================================================
-   NEW HERO-ONLY ANIMATION
-   This moves numbers, plots and bars over data-bg.png
+   HERO DATA ANIMATION
+
+   This is layered over your existing data-bg.png.
+
+   It adds:
+   - moving numbers
+   - changing values
+   - moving plots
+   - animated bar charts
+   - moving particles
+   - animated data wave
 ========================================================= */
 
 function HeroDataAnimation() {
@@ -428,6 +447,14 @@ function HeroDataAnimation() {
 
     if (!ctx) return;
 
+    /*
+      This fixes the GitHub TypeScript build error:
+
+      'canvas' is possibly 'null'
+
+      Everything below uses safeCanvas.
+    */
+    const safeCanvas = canvas;
     const context: CanvasRenderingContext2D = ctx;
 
     let frame = 0;
@@ -487,7 +514,9 @@ function HeroDataAnimation() {
       });
 
       for (let i = 0; i < 85; i++) {
-        const x = width * 0.36 + Math.random() * width * 0.62;
+        const x =
+          width * 0.36 +
+          Math.random() * width * 0.62;
 
         const baseY =
           height * 0.45 +
@@ -505,74 +534,100 @@ function HeroDataAnimation() {
     }
 
     function resize() {
-      const parent = canvas.parentElement;
+      const parent =
+        safeCanvas.parentElement;
 
       if (!parent) return;
 
-      const rect = parent.getBoundingClientRect();
+      const rect =
+        parent.getBoundingClientRect();
 
       width = rect.width;
       height = rect.height;
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr =
+        Math.min(
+          window.devicePixelRatio || 1,
+          2
+        );
 
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      safeCanvas.width =
+        width * dpr;
 
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
+      safeCanvas.height =
+        height * dpr;
 
-      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      safeCanvas.style.width =
+        `${width}px`;
+
+      safeCanvas.style.height =
+        `${height}px`;
+
+      context.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+      );
 
       createScene();
     }
 
     function drawFloatingNumbers() {
-      floatingNumbers.forEach((item, index) => {
-        const floatY =
-          Math.sin(
-            time * item.speed +
-              item.phase
-          ) * 7;
+      floatingNumbers.forEach(
+        (item, index) => {
+          const floatY =
+            Math.sin(
+              time * item.speed +
+                item.phase
+            ) * 7;
 
-        const floatX =
-          Math.cos(
-            time * 0.25 +
-              item.phase
-          ) * 3;
+          const floatX =
+            Math.cos(
+              time * 0.25 +
+                item.phase
+            ) * 3;
 
-        if (
-          Math.floor(time * 18) %
-            (70 + index * 3) ===
-          0
-        ) {
-          item.value = item.decimal
-            ? Math.random()
-            : Math.random() * 100;
+          /*
+            Change some numbers periodically.
+          */
+          if (
+            Math.floor(time * 18) %
+              (70 + index * 3) ===
+            0
+          ) {
+            item.value =
+              item.decimal
+                ? Math.random()
+                : Math.random() * 100;
+          }
+
+          const formatted =
+            item.decimal
+              ? item.value.toFixed(3)
+              : item.value.toFixed(2);
+
+          context.save();
+
+          context.font =
+            width < 700
+              ? "10px monospace"
+              : "13px monospace";
+
+          context.fillStyle =
+            "rgba(107,210,255,0.19)";
+
+          context.fillText(
+            formatted,
+            item.x + floatX,
+            item.y + floatY
+          );
+
+          context.restore();
         }
-
-        const formatted = item.decimal
-          ? item.value.toFixed(3)
-          : item.value.toFixed(2);
-
-        context.save();
-
-        context.font =
-          width < 700
-            ? "10px monospace"
-            : "13px monospace";
-
-        context.fillStyle =
-          "rgba(107, 210, 255, 0.19)";
-
-        context.fillText(
-          formatted,
-          item.x + floatX,
-          item.y + floatY
-        );
-
-        context.restore();
-      });
+      );
     }
 
     function drawParticles() {
@@ -604,12 +659,11 @@ function HeroDataAnimation() {
           Math.PI * 2
         );
 
-        context.fillStyle = `rgba(
-          90,
-          210,
-          255,
-          ${0.08 + pulse * 0.12}
-        )`;
+        context.fillStyle =
+          `rgba(90,210,255,${
+            0.08 +
+            pulse * 0.12
+          })`;
 
         context.fill();
       });
@@ -636,6 +690,9 @@ function HeroDataAnimation() {
         h
       );
 
+      /*
+        Horizontal grid lines.
+      */
       for (let i = 1; i <= 3; i++) {
         context.beginPath();
 
@@ -655,6 +712,9 @@ function HeroDataAnimation() {
         context.stroke();
       }
 
+      /*
+        Animated line.
+      */
       context.beginPath();
 
       for (
@@ -720,7 +780,6 @@ function HeroDataAnimation() {
       );
 
       const count = 6;
-
       const gap = 7;
 
       const barWidth =
@@ -728,7 +787,11 @@ function HeroDataAnimation() {
           gap * (count + 1)) /
         count;
 
-      for (let i = 0; i < count; i++) {
+      for (
+        let i = 0;
+        i < count;
+        i++
+      ) {
         const dynamicHeight =
           h * 0.18 +
           (Math.sin(
@@ -762,10 +825,11 @@ function HeroDataAnimation() {
 
         gradient.addColorStop(
           1,
-          "rgba(85,215,255,0.3)"
+          "rgba(85,215,255,0.30)"
         );
 
-        context.fillStyle = gradient;
+        context.fillStyle =
+          gradient;
 
         context.fillRect(
           barX,
@@ -792,7 +856,11 @@ function HeroDataAnimation() {
 
       context.save();
 
-      for (let layer = 0; layer < 3; layer++) {
+      for (
+        let layer = 0;
+        layer < 3;
+        layer++
+      ) {
         context.beginPath();
 
         for (
@@ -830,11 +898,13 @@ function HeroDataAnimation() {
           layer === 0
             ? "rgba(64,210,255,0.23)"
             : layer === 1
-            ? "rgba(65,145,255,0.14)"
-            : "rgba(120,95,255,0.10)";
+              ? "rgba(65,145,255,0.14)"
+              : "rgba(120,95,255,0.10)";
 
         context.lineWidth =
-          layer === 0 ? 1.4 : 1;
+          layer === 0
+            ? 1.4
+            : 1;
 
         context.stroke();
       }
@@ -898,13 +968,13 @@ function HeroDataAnimation() {
       time += 0.016;
 
       drawParticles();
-
       drawMainWave();
-
       drawFloatingNumbers();
-
       drawLabels();
 
+      /*
+        Hide larger chart panels on small screens.
+      */
       if (width > 700) {
         drawBarChart(
           width * 0.86,
@@ -1058,6 +1128,7 @@ function SkillIcon({
         stroke="currentColor"
         strokeWidth="1.5"
         className="h-6 w-6"
+        aria-hidden="true"
       >
         <ellipse
           cx="12"
@@ -1081,6 +1152,7 @@ function SkillIcon({
         stroke="currentColor"
         strokeWidth="1.5"
         className="h-6 w-6"
+        aria-hidden="true"
       >
         <path d="M4 19V9" />
         <path d="M10 19V5" />
@@ -1098,6 +1170,7 @@ function SkillIcon({
         stroke="currentColor"
         strokeWidth="1.5"
         className="h-6 w-6"
+        aria-hidden="true"
       >
         <path d="m8 9-4 3 4 3" />
         <path d="m16 9 4 3-4 3" />
@@ -1113,6 +1186,7 @@ function SkillIcon({
       stroke="currentColor"
       strokeWidth="1.5"
       className="h-6 w-6"
+      aria-hidden="true"
     >
       <path d="M4 5h16" />
       <path d="M9 3v2" />
@@ -1130,7 +1204,7 @@ function SkillIcon({
 function SectionLabel({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <p className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-cyan-400">
@@ -1236,52 +1310,66 @@ function ResearchWorkflow() {
         </div>
 
         <div className="mt-8 space-y-3">
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              initial={{
-                opacity: 0,
-                x: 30,
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                delay: index * 0.07,
-              }}
-              className="grid grid-cols-[40px_1fr_auto] items-center gap-4 rounded-[20px] border border-white/[0.06] bg-white/[0.025] p-4"
-            >
-              <span className="font-mono text-xs text-cyan-400">
-                {step.number}
-              </span>
-
-              <div>
-                <p className="font-semibold text-white">
-                  {step.title}
-                </p>
-
-                <p className="mt-1 text-xs leading-5 text-zinc-500">
-                  {step.description}
-                </p>
-              </div>
-
-              <span
-                className={`rounded-full border px-3 py-1 text-[10px] ${
-                  step.status === "Completed"
-                    ? "border-emerald-400/20 bg-emerald-400/[0.06] text-emerald-300"
-                    : step.status === "Next Step"
-                    ? "border-cyan-400/20 bg-cyan-400/[0.06] text-cyan-300"
-                    : "border-white/[0.07] text-zinc-600"
-                }`}
+          {steps.map(
+            (step, index) => (
+              <motion.div
+                key={step.number}
+                initial={{
+                  opacity: 0,
+                  x: 30,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  delay:
+                    index *
+                    0.07,
+                }}
+                className="grid grid-cols-[40px_1fr_auto] items-center gap-4 rounded-[20px] border border-white/[0.06] bg-white/[0.025] p-4"
               >
-                {step.status}
-              </span>
-            </motion.div>
-          ))}
+                <span className="font-mono text-xs text-cyan-400">
+                  {
+                    step.number
+                  }
+                </span>
+
+                <div>
+                  <p className="font-semibold text-white">
+                    {
+                      step.title
+                    }
+                  </p>
+
+                  <p className="mt-1 text-xs leading-5 text-zinc-500">
+                    {
+                      step.description
+                    }
+                  </p>
+                </div>
+
+                <span
+                  className={`rounded-full border px-3 py-1 text-[10px] ${
+                    step.status ===
+                    "Completed"
+                      ? "border-emerald-400/20 bg-emerald-400/[0.06] text-emerald-300"
+                      : step.status ===
+                          "Next Step"
+                        ? "border-cyan-400/20 bg-cyan-400/[0.06] text-cyan-300"
+                        : "border-white/[0.07] text-zinc-600"
+                  }`}
+                >
+                  {
+                    step.status
+                  }
+                </span>
+              </motion.div>
+            )
+          )}
         </div>
       </div>
     </div>
@@ -1315,7 +1403,9 @@ function ExperienceCard({
       }}
       transition={{
         duration: 0.7,
-        delay: index * 0.08,
+        delay:
+          index *
+          0.08,
       }}
       className={`relative overflow-hidden rounded-[32px] border p-8 backdrop-blur-xl md:p-10 ${
         experience.featured
@@ -1326,55 +1416,79 @@ function ExperienceCard({
       <div className="relative grid gap-8 lg:grid-cols-[180px_1fr]">
         <div>
           <p className="text-sm text-zinc-500">
-            {experience.date}
+            {
+              experience.date
+            }
           </p>
 
           <span className="mt-4 inline-flex rounded-full border border-cyan-400/15 bg-cyan-400/[0.04] px-3 py-1 text-xs font-medium text-cyan-300">
-            {experience.type}
+            {
+              experience.type
+            }
           </span>
         </div>
 
         <div>
           <h3 className="text-2xl font-semibold tracking-[-0.03em] md:text-3xl">
-            {experience.role}
+            {
+              experience.role
+            }
           </h3>
 
           <p className="mt-2 font-medium text-cyan-400">
-            {experience.company}
+            {
+              experience.company
+            }
           </p>
 
           <p className="mt-1 text-sm text-zinc-600">
-            {experience.location}
+            {
+              experience.location
+            }
           </p>
 
           <p className="mt-6 max-w-3xl leading-7 text-zinc-500">
-            {experience.description}
+            {
+              experience.description
+            }
           </p>
 
           <div className="mt-7 space-y-3">
-            {experience.bullets.map((bullet) => (
-              <div
-                key={bullet}
-                className="flex gap-3"
-              >
-                <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
+            {experience.bullets.map(
+              (bullet) => (
+                <div
+                  key={
+                    bullet
+                  }
+                  className="flex gap-3"
+                >
+                  <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
 
-                <p className="leading-7 text-zinc-300">
-                  {bullet}
-                </p>
-              </div>
-            ))}
+                  <p className="leading-7 text-zinc-300">
+                    {
+                      bullet
+                    }
+                  </p>
+                </div>
+              )
+            )}
           </div>
 
           <div className="mt-8 flex flex-wrap gap-2">
-            {experience.tech.map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full border border-white/[0.08] bg-black/20 px-4 py-2 text-xs text-zinc-400"
-              >
-                {tech}
-              </span>
-            ))}
+            {experience.tech.map(
+              (tech) => (
+                <span
+                  key={
+                    tech
+                  }
+                  className="rounded-full border border-white/[0.08] bg-black/20 px-4 py-2 text-xs text-zinc-400"
+                >
+                  {
+                    tech
+                  }
+                </span>
+              )
+            )}
           </div>
         </div>
       </div>
@@ -1414,7 +1528,9 @@ function SkillCard({
       }}
       transition={{
         duration: 0.6,
-        delay: index * 0.08,
+        delay:
+          index *
+          0.08,
       }}
       className="group relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-[#0d1016]/80 p-8 shadow-2xl shadow-black/10 backdrop-blur-xl md:p-9"
     >
@@ -1432,7 +1548,9 @@ function SkillCard({
         }}
         transition={{
           duration: 0.8,
-          delay: index * 0.1,
+          delay:
+            index *
+            0.1,
         }}
         className="absolute left-0 top-0 h-px w-full origin-left bg-gradient-to-r from-cyan-400/60 via-blue-400/20 to-transparent"
       />
@@ -1447,52 +1565,71 @@ function SkillCard({
             className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300"
           >
             <SkillIcon
-              type={skill.type}
+              type={
+                skill.type
+              }
             />
           </motion.div>
 
           <span className="font-mono text-xs text-zinc-700">
-            {skill.number}
+            {
+              skill.number
+            }
           </span>
         </div>
 
         <h3 className="mt-8 text-2xl font-semibold tracking-[-0.03em]">
-          {skill.title}
+          {
+            skill.title
+          }
         </h3>
 
         <p className="mt-3 max-w-lg text-sm leading-6 text-zinc-500">
-          {skill.description}
+          {
+            skill.description
+          }
         </p>
 
         <div className="mt-8 flex flex-wrap gap-2">
-          {skill.items.map((item, itemIndex) => (
-            <motion.span
-              key={item}
-              initial={{
-                opacity: 0,
-                y: 12,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              whileHover={{
-                y: -3,
-                scale: 1.04,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                delay:
-                  index * 0.06 +
-                  itemIndex * 0.04,
-              }}
-              className="cursor-default rounded-full border border-white/[0.08] bg-black/25 px-4 py-2 text-sm text-zinc-400 transition-colors duration-300 hover:border-cyan-400/25 hover:bg-cyan-400/[0.05] hover:text-cyan-200"
-            >
-              {item}
-            </motion.span>
-          ))}
+          {skill.items.map(
+            (
+              item,
+              itemIndex
+            ) => (
+              <motion.span
+                key={
+                  item
+                }
+                initial={{
+                  opacity: 0,
+                  y: 12,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                whileHover={{
+                  y: -3,
+                  scale: 1.04,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  delay:
+                    index *
+                      0.06 +
+                    itemIndex *
+                      0.04,
+                }}
+                className="cursor-default rounded-full border border-white/[0.08] bg-black/25 px-4 py-2 text-sm text-zinc-400 transition-colors duration-300 hover:border-cyan-400/25 hover:bg-cyan-400/[0.05] hover:text-cyan-200"
+              >
+                {
+                  item
+                }
+              </motion.span>
+            )
+          )}
         </div>
       </div>
     </motion.article>
@@ -1504,26 +1641,30 @@ function SkillCard({
 ========================================================= */
 
 export default function Home() {
-  const [phraseIndex, setPhraseIndex] =
-    useState(0);
+  const [
+    phraseIndex,
+    setPhraseIndex,
+  ] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setPhraseIndex(
-        (current) =>
-          (current + 1) %
-          animatedPhrases.length
-      );
-    }, 2600);
+    const interval =
+      setInterval(() => {
+        setPhraseIndex(
+          (current) =>
+            (current +
+              1) %
+            animatedPhrases.length
+        );
+      }, 2600);
 
     return () =>
-      clearInterval(interval);
+      clearInterval(
+        interval
+      );
   }, []);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#07090d] text-white">
-
-      {/* This stays for the sections after the hero */}
       <AnimatedDataBackground />
 
       {/* =================================================
@@ -1536,7 +1677,8 @@ export default function Home() {
             href="#home"
             className="text-sm font-semibold tracking-wide text-white"
           >
-            EL MEHDI BENSOUDA.
+            EL MEHDI
+            BENSOUDA.
           </a>
 
           <div className="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
@@ -1576,7 +1718,9 @@ export default function Home() {
             </a>
 
             <a
-              href={links.linkedin}
+              href={
+                links.linkedin
+              }
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-5 py-2.5 text-white transition hover:bg-white hover:text-black"
@@ -1593,15 +1737,13 @@ export default function Home() {
 
       {/* =================================================
           HERO
-          Your image stays.
-          Only the numbers / graphs / plots now animate.
       ================================================= */}
 
       <section
         id="home"
         className="relative z-10 flex min-h-screen items-center overflow-hidden px-6 pt-28 lg:px-8"
       >
-        {/* YOUR ORIGINAL BACKGROUND IMAGE */}
+        {/* Existing hero image */}
 
         <div
           className="absolute inset-0 z-[1] bg-cover bg-center"
@@ -1610,7 +1752,7 @@ export default function Home() {
           }}
         />
 
-        {/* Slow movement of the actual background image stays subtle */}
+        {/* Very subtle background breathing */}
 
         <motion.div
           className="absolute inset-0 z-[2]"
@@ -1623,28 +1765,31 @@ export default function Home() {
           }}
           transition={{
             duration: 20,
-            repeat: Infinity,
+            repeat:
+              Infinity,
             ease: "easeInOut",
           }}
           style={{
             backgroundImage: `url(${basePath}/images/data-bg.png)`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundSize:
+              "cover",
+            backgroundPosition:
+              "center",
             opacity: 0.12,
           }}
         />
 
-        {/* NEW: moving numbers and plots */}
+        {/* Animated plots and numbers */}
 
         <HeroDataAnimation />
 
-        {/* Keep text readable */}
+        {/* Hero overlays */}
 
         <div className="absolute inset-0 z-[4] bg-gradient-to-r from-[#07090d]/97 via-[#07090d]/65 to-[#07090d]/15" />
 
         <div className="absolute inset-0 z-[4] bg-gradient-to-t from-[#07090d]/55 via-transparent to-[#07090d]/15" />
 
-        {/* HERO CONTENT */}
+        {/* Hero content */}
 
         <div className="relative z-10 mx-auto w-full max-w-7xl">
           <div className="max-w-5xl">
@@ -1662,7 +1807,9 @@ export default function Home() {
               }}
               className="mb-7 text-xs font-semibold uppercase tracking-[0.35em] text-cyan-400"
             >
-              Hello, I&apos;m El Mehdi Bensouda
+              Hello, I&apos;m
+              El Mehdi
+              Bensouda
             </motion.p>
 
             <motion.h1
@@ -1679,7 +1826,8 @@ export default function Home() {
               }}
               className="pb-8 text-6xl font-semibold leading-[1.12] tracking-[-0.06em] sm:text-7xl md:text-8xl lg:text-[110px]"
             >
-              Turning data into
+              Turning data
+              into
 
               <span className="block overflow-visible bg-gradient-to-r from-white via-cyan-300 to-blue-400 bg-clip-text pb-5 leading-[1.16] text-transparent">
                 insights.
@@ -1692,7 +1840,9 @@ export default function Home() {
               </span>
 
               <motion.span
-                key={phraseIndex}
+                key={
+                  phraseIndex
+                }
                 initial={{
                   opacity: 0,
                   y: 12,
@@ -1703,15 +1853,32 @@ export default function Home() {
                 }}
                 className="font-semibold text-white"
               >
-                {animatedPhrases[phraseIndex]}
+                {
+                  animatedPhrases[
+                    phraseIndex
+                  ]
+                }
               </motion.span>
             </div>
 
             <p className="mt-8 max-w-2xl text-lg leading-8 text-zinc-300 md:text-xl">
-              I&apos;m a Data Science student at Duquesne University interested
-              in machine learning, analytics, research, and software
-              development. My goal is to turn complex problems into useful and
-              understandable solutions.
+              I&apos;m a Data
+              Science student
+              at Duquesne
+              University
+              interested in
+              machine
+              learning,
+              analytics,
+              research, and
+              software
+              development.
+              My goal is to
+              turn complex
+              problems into
+              useful and
+              understandable
+              solutions.
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -1719,16 +1886,21 @@ export default function Home() {
                 href="#work"
                 className="rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black transition hover:bg-cyan-300"
               >
-                Explore my work
+                Explore my
+                work
               </a>
 
               <a
-                href={resumePath}
+                href={
+                  resumePath
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-full border border-white/15 bg-black/30 px-7 py-3.5 text-sm text-white backdrop-blur-lg transition hover:bg-white/10"
               >
-                Take a peek at my résumé 👀
+                Take a peek
+                at my résumé
+                👀
               </a>
             </div>
           </div>
@@ -1736,12 +1908,14 @@ export default function Home() {
       </section>
 
       {/* =================================================
-          EVERYTHING BELOW HERE STAYS THE SAME
+          REST OF WEBSITE
       ================================================= */}
 
       <div className="relative z-10 bg-[#07090d]/55 backdrop-blur-[1px]">
 
-        {/* ABOUT */}
+        {/* =================================================
+            ABOUT
+        ================================================= */}
 
         <section
           id="about"
@@ -1753,17 +1927,18 @@ export default function Home() {
             </SectionLabel>
 
             <h2 className="text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
-              Curious about data.
+              Curious about
+              data.
 
               <span className="block text-zinc-600">
-                Focused on solving problems.
+                Focused on
+                solving
+                problems.
               </span>
             </h2>
 
             <div className="mt-20 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-
               <div className="relative min-h-[600px] overflow-hidden rounded-[32px] border border-white/10">
-
                 <img
                   src={`${basePath}/images/mehdi.jpg`}
                   alt="El Mehdi Bensouda"
@@ -1772,27 +1947,52 @@ export default function Home() {
 
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/80 to-transparent p-8 pt-36">
                   <p className="text-2xl font-semibold">
-                    El Mehdi Bensouda
+                    El Mehdi
+                    Bensouda
                   </p>
 
                   <p className="mt-2 text-sm font-medium tracking-wide text-zinc-300">
-                    Data Science
+                    Data
+                    Science
                   </p>
                 </div>
               </div>
 
               <div className="flex flex-col justify-center rounded-[32px] border border-white/[0.08] bg-[#0d1016]/80 p-8 backdrop-blur-xl md:p-12">
-
                 <p className="text-xl leading-9 text-zinc-300 md:text-2xl">
-                  I&apos;m studying Data Science at Duquesne University and enjoy
-                  working with real datasets, finding patterns, building
-                  analytical solutions, and turning complex information into
-                  something useful.
+                  I&apos;m
+                  studying Data
+                  Science at
+                  Duquesne
+                  University
+                  and enjoy
+                  working with
+                  real datasets,
+                  finding
+                  patterns,
+                  building
+                  analytical
+                  solutions,
+                  and turning
+                  complex
+                  information
+                  into
+                  something
+                  useful.
                 </p>
 
                 <p className="mt-7 text-lg leading-8 text-zinc-500">
-                  My interests include machine learning, data analytics,
-                  scientific research, visualization, and software development.
+                  My interests
+                  include
+                  machine
+                  learning,
+                  data
+                  analytics,
+                  scientific
+                  research,
+                  visualization,
+                  and software
+                  development.
                 </p>
 
                 <div className="mt-12 grid grid-cols-2 gap-4">
@@ -1801,42 +2001,52 @@ export default function Home() {
                     "Machine Learning",
                     "Research",
                     "Data Analytics",
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className="rounded-2xl border border-white/[0.07] bg-black/25 p-5 text-sm text-zinc-300"
-                    >
-                      {item}
-                    </div>
-                  ))}
+                  ].map(
+                    (
+                      item
+                    ) => (
+                      <div
+                        key={
+                          item
+                        }
+                        className="rounded-2xl border border-white/[0.07] bg-black/25 p-5 text-sm text-zinc-300"
+                      >
+                        {
+                          item
+                        }
+                      </div>
+                    )
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* WORK */}
+        {/* =================================================
+            WORK
+        ================================================= */}
 
         <section
           id="work"
           className="px-6 py-36 lg:px-8"
         >
           <div className="mx-auto max-w-7xl">
-
             <SectionLabel>
               Selected Work
             </SectionLabel>
 
             <h2 className="text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
-              Work that shows
+              Work that
+              shows
 
               <span className="block text-zinc-600">
-                what I can do.
+                what I can
+                do.
               </span>
             </h2>
 
             <div className="mt-20 space-y-10">
-
               {/* GTEx */}
 
               <motion.article
@@ -1854,40 +2064,67 @@ export default function Home() {
                 className="overflow-hidden rounded-[36px] border border-white/[0.08] bg-[#0d1016]/85"
               >
                 <div className="grid lg:grid-cols-2">
-
                   <div className="flex min-h-[650px] flex-col justify-between p-9 md:p-14">
                     <div>
-
                       <div className="flex items-center justify-between gap-4">
-
                         <p className="text-sm text-cyan-400">
                           Research
                         </p>
 
                         <span className="rounded-full border border-amber-400/20 bg-amber-400/[0.06] px-3 py-1 text-xs text-amber-300">
-                          In Progress
+                          In
+                          Progress
                         </span>
-
                       </div>
 
                       <h3 className="mt-8 text-4xl font-semibold tracking-[-0.04em] md:text-6xl">
-                        GTEx Gene Expression Research
+                        GTEx Gene
+                        Expression
+                        Research
                       </h3>
 
                       <p className="mt-7 text-lg leading-8 text-zinc-500">
-                        Ongoing research using GTEx V11 RNA-seq data to study how
-                        gene expression varies across human tissues.
+                        Ongoing
+                        research
+                        using GTEx
+                        V11
+                        RNA-seq
+                        data to
+                        study how
+                        gene
+                        expression
+                        varies
+                        across
+                        human
+                        tissues.
                       </p>
 
                       <p className="mt-5 leading-7 text-zinc-600">
-                        The project currently focuses on preparing and cleaning
-                        large gene-expression datasets, organizing genes across
-                        tissues, and building the foundation for tissue-specific
-                        expression analysis.
+                        The
+                        project
+                        currently
+                        focuses on
+                        preparing
+                        and
+                        cleaning
+                        large
+                        gene-expression
+                        datasets,
+                        organizing
+                        genes
+                        across
+                        tissues,
+                        and
+                        building
+                        the
+                        foundation
+                        for
+                        tissue-specific
+                        expression
+                        analysis.
                       </p>
 
                       <div className="mt-8 flex flex-wrap gap-2">
-
                         {[
                           "Python",
                           "Pandas",
@@ -1895,42 +2132,46 @@ export default function Home() {
                           "Matplotlib",
                           "RNA-seq",
                           "GTEx V11",
-                        ].map((tech) => (
-
-                          <span
-                            key={tech}
-                            className="rounded-full border border-white/[0.08] px-4 py-2 text-sm text-zinc-300"
-                          >
-                            {tech}
-                          </span>
-
-                        ))}
-
+                        ].map(
+                          (
+                            tech
+                          ) => (
+                            <span
+                              key={
+                                tech
+                              }
+                              className="rounded-full border border-white/[0.08] px-4 py-2 text-sm text-zinc-300"
+                            >
+                              {
+                                tech
+                              }
+                            </span>
+                          )
+                        )}
                       </div>
-
                     </div>
 
                     <a
-                      href={links.gtexResearch}
+                      href={
+                        links.gtexResearch
+                      }
                       target="_blank"
                       rel="noreferrer"
                       className="mt-12 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-cyan-300"
                     >
-
                       <span>
-                        View research on GitHub
+                        View
+                        research
+                        on
+                        GitHub
                       </span>
 
                       <GitHubIcon />
-
                     </a>
-
                   </div>
 
                   <ResearchWorkflow />
-
                 </div>
-
               </motion.article>
 
               {/* SOCIAL MEDIA */}
@@ -1949,11 +2190,8 @@ export default function Home() {
                 }}
                 className="overflow-hidden rounded-[36px] border border-white/[0.08] bg-[#0d1016]/85"
               >
-
                 <div className="grid lg:grid-cols-2">
-
                   <div className="relative min-h-[650px] overflow-hidden bg-black">
-
                     <iframe
                       src={`${socialMediaPresentation}#toolbar=0&navpanes=0&scrollbar=1`}
                       title="Social Media Impact Study Presentation"
@@ -1961,44 +2199,70 @@ export default function Home() {
                     />
 
                     <div className="pointer-events-none absolute left-5 top-5 rounded-full border border-white/10 bg-black/75 px-4 py-2 text-xs text-zinc-300">
-                      Scroll through the presentation
+                      Scroll
+                      through
+                      the
+                      presentation
                     </div>
-
                   </div>
 
                   <div className="flex min-h-[650px] flex-col justify-between p-9 md:p-14">
-
                     <div>
-
                       <div className="flex items-center justify-between gap-4">
-
                         <p className="text-sm text-cyan-400">
-                          Data Science Project
+                          Data
+                          Science
+                          Project
                         </p>
 
                         <span className="rounded-full border border-emerald-400/20 bg-emerald-400/[0.06] px-3 py-1 text-xs text-emerald-300">
                           Completed
                         </span>
-
                       </div>
 
                       <h3 className="mt-8 text-4xl font-semibold tracking-[-0.04em] md:text-6xl">
-                        Social Media Impact Study
+                        Social
+                        Media
+                        Impact
+                        Study
                       </h3>
 
                       <p className="mt-7 text-lg leading-8 text-zinc-500">
-                        Analyzed social media usage, mental health, addiction,
-                        and academic performance across teen and student datasets.
+                        Analyzed
+                        social
+                        media
+                        usage,
+                        mental
+                        health,
+                        addiction,
+                        and
+                        academic
+                        performance
+                        across teen
+                        and student
+                        datasets.
                       </p>
 
                       <p className="mt-5 leading-7 text-zinc-600">
-                        The project uses exploratory data analysis, correlation
-                        matrices, heatmaps, distributions, boxplots, group
-                        comparisons, and logistic regression.
+                        The
+                        project
+                        uses
+                        exploratory
+                        data
+                        analysis,
+                        correlation
+                        matrices,
+                        heatmaps,
+                        distributions,
+                        boxplots,
+                        group
+                        comparisons,
+                        and
+                        logistic
+                        regression.
                       </p>
 
                       <div className="mt-8 flex flex-wrap gap-2">
-
                         {[
                           "Python",
                           "Pandas",
@@ -2006,103 +2270,138 @@ export default function Home() {
                           "Visualization",
                           "Statistics",
                           "Logistic Regression",
-                        ].map((tech) => (
-
-                          <span
-                            key={tech}
-                            className="rounded-full border border-white/[0.08] px-4 py-2 text-sm text-zinc-300"
-                          >
-                            {tech}
-                          </span>
-
-                        ))}
-
+                        ].map(
+                          (
+                            tech
+                          ) => (
+                            <span
+                              key={
+                                tech
+                              }
+                              className="rounded-full border border-white/[0.08] px-4 py-2 text-sm text-zinc-300"
+                            >
+                              {
+                                tech
+                              }
+                            </span>
+                          )
+                        )}
                       </div>
-
                     </div>
 
                     <a
-                      href={socialMediaPresentation}
+                      href={
+                        socialMediaPresentation
+                      }
                       target="_blank"
                       rel="noreferrer"
                       className="mt-12 inline-flex w-fit rounded-full border border-white/[0.12] px-6 py-3 text-sm text-white transition hover:bg-white/10"
                     >
-                      Open full presentation ↗
+                      Open full
+                      presentation
+                      ↗
                     </a>
-
                   </div>
-
                 </div>
-
               </motion.article>
-
             </div>
-
           </div>
-
         </section>
 
-        {/* EXPERIENCE */}
+        {/* =================================================
+            EXPERIENCE
+        ================================================= */}
 
         <section
           id="experience"
           className="px-6 py-36 lg:px-8"
         >
-
           <div className="mx-auto max-w-7xl">
-
             <SectionLabel>
               Experience
             </SectionLabel>
 
             <h2 className="max-w-5xl text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
-              Experience in action.
+              Experience
+              in action.
 
               <span className="block text-zinc-600">
-                Data, research, and real-world problem solving.
+                Data,
+                research,
+                and
+                real-world
+                problem
+                solving.
               </span>
-
             </h2>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-zinc-500">
-              Research, analytics, and professional experience where I have
-              applied data skills to real projects, operations, and
-              organizational needs.
+              Research,
+              analytics,
+              and
+              professional
+              experience
+              where I have
+              applied data
+              skills to
+              real
+              projects,
+              operations,
+              and
+              organizational
+              needs.
             </p>
 
             <div className="mt-20 space-y-6">
-
-              {experiences.map((experience, index) => (
-
-                <ExperienceCard
-                  key={experience.role}
-                  experience={experience}
-                  index={index}
-                />
-
-              ))}
-
+              {experiences.map(
+                (
+                  experience,
+                  index
+                ) => (
+                  <ExperienceCard
+                    key={
+                      experience.role
+                    }
+                    experience={
+                      experience
+                    }
+                    index={
+                      index
+                    }
+                  />
+                )
+              )}
             </div>
-
           </div>
-
         </section>
 
-        {/* SKILLS */}
+        {/* =================================================
+            SKILLS
+        ================================================= */}
 
         <section
           id="skills"
           className="relative overflow-hidden px-6 py-36 lg:px-8"
         >
-
           <motion.div
             animate={{
-              x: [0, 120, -40, 0],
-              y: [0, -30, 70, 0],
+              x: [
+                0,
+                120,
+                -40,
+                0,
+              ],
+              y: [
+                0,
+                -30,
+                70,
+                0,
+              ],
             }}
             transition={{
               duration: 18,
-              repeat: Infinity,
+              repeat:
+                Infinity,
               ease: "easeInOut",
             }}
             className="pointer-events-none absolute left-[5%] top-[20%] h-[320px] w-[320px] rounded-full bg-cyan-500/[0.05] blur-[130px]"
@@ -2110,98 +2409,130 @@ export default function Home() {
 
           <motion.div
             animate={{
-              x: [0, -100, 50, 0],
-              y: [0, 60, -40, 0],
+              x: [
+                0,
+                -100,
+                50,
+                0,
+              ],
+              y: [
+                0,
+                60,
+                -40,
+                0,
+              ],
             }}
             transition={{
               duration: 22,
-              repeat: Infinity,
+              repeat:
+                Infinity,
               ease: "easeInOut",
             }}
             className="pointer-events-none absolute bottom-[10%] right-[5%] h-[350px] w-[350px] rounded-full bg-blue-600/[0.05] blur-[140px]"
           />
 
           <div className="relative mx-auto max-w-7xl">
-
             <SectionLabel>
               Skills
             </SectionLabel>
 
             <h2 className="max-w-5xl text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
-              Tools I use to
+              Tools I use
+              to
 
               <span className="block text-zinc-600">
-                turn ideas into solutions.
+                turn ideas
+                into
+                solutions.
               </span>
-
             </h2>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-zinc-500">
-              A growing technical toolkit built through coursework, research,
-              internships, analytics projects, and software development.
+              A growing
+              technical
+              toolkit
+              built
+              through
+              coursework,
+              research,
+              internships,
+              analytics
+              projects,
+              and
+              software
+              development.
             </p>
 
             <div className="mt-20 grid gap-5 md:grid-cols-2">
-
-              {skills.map((skill, index) => (
-
-                <SkillCard
-                  key={skill.title}
-                  skill={skill}
-                  index={index}
-                />
-
-              ))}
-
+              {skills.map(
+                (
+                  skill,
+                  index
+                ) => (
+                  <SkillCard
+                    key={
+                      skill.title
+                    }
+                    skill={
+                      skill
+                    }
+                    index={
+                      index
+                    }
+                  />
+                )
+              )}
             </div>
 
             <div className="mt-16 overflow-hidden border-y border-white/[0.06] py-5">
-
               <motion.div
                 animate={{
-                  x: ["0%", "-50%"],
+                  x: [
+                    "0%",
+                    "-50%",
+                  ],
                 }}
                 transition={{
                   duration: 25,
-                  repeat: Infinity,
+                  repeat:
+                    Infinity,
                   ease: "linear",
                 }}
                 className="flex w-max items-center whitespace-nowrap"
               >
-
-                {[...marqueeSkills, ...marqueeSkills].map(
-                  (skill, index) => (
-
+                {[
+                  ...marqueeSkills,
+                  ...marqueeSkills,
+                ].map(
+                  (
+                    skill,
+                    index
+                  ) => (
                     <div
                       key={`${skill}-${index}`}
                       className="flex items-center"
                     >
-
                       <span className="px-6 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">
-                        {skill}
+                        {
+                          skill
+                        }
                       </span>
 
                       <span className="h-1 w-1 rounded-full bg-cyan-400/50" />
-
                     </div>
-
                   )
                 )}
-
               </motion.div>
-
             </div>
-
           </div>
-
         </section>
 
-        {/* EDUCATION */}
+        {/* =================================================
+            EDUCATION
+        ================================================= */}
 
         <section className="px-6 py-36 lg:px-8">
-
           <div className="mx-auto max-w-7xl">
-
             <motion.div
               initial={{
                 opacity: 0,
@@ -2219,61 +2550,80 @@ export default function Home() {
               }}
               className="relative overflow-hidden rounded-[40px] border border-white/[0.09] bg-[#0d1016]/80 p-9 backdrop-blur-xl md:p-14"
             >
-
               <div className="pointer-events-none absolute -right-32 -top-32 h-[380px] w-[380px] rounded-full bg-cyan-500/[0.05] blur-[130px]" />
 
               <div className="relative">
-
                 <SectionLabel>
                   Education
                 </SectionLabel>
 
                 <div className="grid gap-14 lg:grid-cols-2">
-
                   <div>
-
                     <h2 className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl">
-                      Duquesne University
+                      Duquesne
+                      University
                     </h2>
 
                     <p className="mt-6 text-2xl text-zinc-300">
-                      Bachelor of Science in Data Science
+                      Bachelor of
+                      Science in
+                      Data
+                      Science
                     </p>
 
                     <p className="mt-4 max-w-xl leading-7 text-zinc-500">
-                      Building a strong foundation in data analysis,
-                      statistics, programming, and computational problem solving.
+                      Building a
+                      strong
+                      foundation
+                      in data
+                      analysis,
+                      statistics,
+                      programming,
+                      and
+                      computational
+                      problem
+                      solving.
                     </p>
 
                     <div className="mt-8 flex flex-wrap gap-3">
-
                       <span className="rounded-full border border-white/[0.08] bg-black/20 px-4 py-2 text-sm text-zinc-400">
-                        Pittsburgh, Pennsylvania
+                        Pittsburgh,
+                        Pennsylvania
                       </span>
 
                       <span className="rounded-full border border-white/[0.08] bg-black/20 px-4 py-2 text-sm text-zinc-400">
-                        Expected December 2027
+                        Expected
+                        December
+                        2027
                       </span>
-
                     </div>
-
                   </div>
 
                   <div className="flex items-center">
-
                     <div className="w-full">
-
                       <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-400">
-                        Interests & Focus Areas
+                        Interests
+                        & Focus
+                        Areas
                       </p>
 
                       <p className="mt-4 max-w-lg text-sm leading-6 text-zinc-500">
-                        Areas I&apos;m especially interested in exploring through
-                        coursework, research, internships, and personal projects.
+                        Areas
+                        I&apos;m
+                        especially
+                        interested
+                        in
+                        exploring
+                        through
+                        coursework,
+                        research,
+                        internships,
+                        and
+                        personal
+                        projects.
                       </p>
 
                       <div className="mt-7 flex flex-wrap gap-3">
-
                         {[
                           "Machine Learning",
                           "Data Analytics",
@@ -2283,60 +2633,61 @@ export default function Home() {
                           "Research",
                           "Software Development",
                           "Predictive Analytics",
-                        ].map((interest, index) => (
-
-                          <motion.span
-                            key={interest}
-                            initial={{
-                              opacity: 0,
-                              y: 12,
-                            }}
-                            whileInView={{
-                              opacity: 1,
-                              y: 0,
-                            }}
-                            whileHover={{
-                              y: -3,
-                              scale: 1.04,
-                            }}
-                            viewport={{
-                              once: true,
-                            }}
-                            transition={{
-                              delay: index * 0.05,
-                            }}
-                            className="rounded-full border border-cyan-400/10 bg-cyan-400/[0.025] px-4 py-2.5 text-sm text-zinc-300 transition-colors hover:border-cyan-400/25 hover:bg-cyan-400/[0.06] hover:text-cyan-200"
-                          >
-                            {interest}
-                          </motion.span>
-
-                        ))}
-
+                        ].map(
+                          (
+                            interest,
+                            index
+                          ) => (
+                            <motion.span
+                              key={
+                                interest
+                              }
+                              initial={{
+                                opacity: 0,
+                                y: 12,
+                              }}
+                              whileInView={{
+                                opacity: 1,
+                                y: 0,
+                              }}
+                              whileHover={{
+                                y: -3,
+                                scale: 1.04,
+                              }}
+                              viewport={{
+                                once: true,
+                              }}
+                              transition={{
+                                delay:
+                                  index *
+                                  0.05,
+                              }}
+                              className="rounded-full border border-cyan-400/10 bg-cyan-400/[0.025] px-4 py-2.5 text-sm text-zinc-300 transition-colors hover:border-cyan-400/25 hover:bg-cyan-400/[0.06] hover:text-cyan-200"
+                            >
+                              {
+                                interest
+                              }
+                            </motion.span>
+                          )
+                        )}
                       </div>
-
                     </div>
-
                   </div>
-
                 </div>
-
               </div>
-
             </motion.div>
-
           </div>
-
         </section>
 
-        {/* CONTACT */}
+        {/* =================================================
+            CONTACT
+        ================================================= */}
 
         <section
           id="contact"
           className="px-6 py-40 lg:px-8"
         >
-
           <div className="mx-auto max-w-7xl">
-
             <motion.div
               initial={{
                 opacity: 0,
@@ -2354,15 +2705,25 @@ export default function Home() {
               }}
               className="relative overflow-hidden rounded-[40px] border border-white/[0.08] bg-[#0d1016]/85 px-7 py-16 shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-10 md:px-14 md:py-20"
             >
-
               <motion.div
                 animate={{
-                  x: [0, 50, -20, 0],
-                  y: [0, 30, -20, 0],
+                  x: [
+                    0,
+                    50,
+                    -20,
+                    0,
+                  ],
+                  y: [
+                    0,
+                    30,
+                    -20,
+                    0,
+                  ],
                 }}
                 transition={{
                   duration: 16,
-                  repeat: Infinity,
+                  repeat:
+                    Infinity,
                   ease: "easeInOut",
                 }}
                 className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-cyan-500/[0.06] blur-[130px]"
@@ -2370,73 +2731,102 @@ export default function Home() {
 
               <motion.div
                 animate={{
-                  x: [0, -40, 25, 0],
-                  y: [0, -25, 35, 0],
+                  x: [
+                    0,
+                    -40,
+                    25,
+                    0,
+                  ],
+                  y: [
+                    0,
+                    -25,
+                    35,
+                    0,
+                  ],
                 }}
                 transition={{
                   duration: 20,
-                  repeat: Infinity,
+                  repeat:
+                    Infinity,
                   ease: "easeInOut",
                 }}
                 className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-violet-500/[0.06] blur-[140px]"
               />
 
               <div className="relative">
-
                 <div className="text-center">
-
                   <SectionLabel>
-                    Let&apos;s Connect
+                    Let&apos;s
+                    Connect
                   </SectionLabel>
 
                   <h2 className="mx-auto max-w-5xl overflow-visible pb-6 text-5xl font-semibold leading-[1.1] tracking-[-0.055em] md:text-7xl lg:text-[82px]">
-
-                    Let&apos;s create
+                    Let&apos;s
+                    create
 
                     <span className="block overflow-visible bg-gradient-to-r from-cyan-300 via-blue-300 to-violet-400 bg-clip-text pb-6 pt-1 leading-[1.2] text-transparent">
-                      something meaningful.
+                      something
+                      meaningful.
                     </span>
-
                   </h2>
 
                   <p className="mx-auto mt-2 max-w-3xl text-base leading-8 text-zinc-400 md:text-lg">
-                    I&apos;m interested in internships, research opportunities,
-                    and collaborative projects where I can apply data science,
-                    analytics, machine learning, and software development.
+                    I&apos;m
+                    interested
+                    in
+                    internships,
+                    research
+                    opportunities,
+                    and
+                    collaborative
+                    projects
+                    where I can
+                    apply data
+                    science,
+                    analytics,
+                    machine
+                    learning,
+                    and
+                    software
+                    development.
                   </p>
 
                   <div className="mt-8 flex flex-wrap justify-center gap-3">
-
                     {[
                       "Internships",
                       "Research",
                       "Data Science Projects",
-                    ].map((item) => (
-
-                      <motion.span
-                        key={item}
-                        whileHover={{
-                          y: -2,
-                        }}
-                        className="rounded-full border border-cyan-400/15 bg-cyan-400/[0.04] px-4 py-2 text-xs font-medium text-cyan-200"
-                      >
-                        {item}
-                      </motion.span>
-
-                    ))}
-
+                    ].map(
+                      (
+                        item
+                      ) => (
+                        <motion.span
+                          key={
+                            item
+                          }
+                          whileHover={{
+                            y: -2,
+                          }}
+                          className="rounded-full border border-cyan-400/15 bg-cyan-400/[0.04] px-4 py-2 text-xs font-medium text-cyan-200"
+                        >
+                          {
+                            item
+                          }
+                        </motion.span>
+                      )
+                    )}
                   </div>
-
                 </div>
 
                 {/* CONTACT CARDS */}
 
                 <div className="mt-16 grid gap-5 md:grid-cols-3">
-
                   {/* EMAIL */}
 
                   <motion.a
-                    href={links.email}
+                    href={
+                      links.email
+                    }
                     initial={{
                       opacity: 0,
                       y: 30,
@@ -2456,11 +2846,8 @@ export default function Home() {
                     }}
                     className="group relative flex min-h-[235px] flex-col justify-between overflow-hidden rounded-[28px] border border-white/[0.07] bg-black/20 p-7 text-left transition duration-300 hover:border-cyan-400/20 hover:bg-white/[0.025]"
                   >
-
                     <div>
-
                       <div className="flex items-start justify-between">
-
                         <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300">
                           <EmailIcon />
                         </div>
@@ -2468,7 +2855,6 @@ export default function Home() {
                         <span className="text-zinc-700 transition duration-300 group-hover:translate-x-1 group-hover:text-cyan-300">
                           <ArrowIcon />
                         </span>
-
                       </div>
 
                       <p className="mt-7 text-lg font-semibold text-white">
@@ -2476,28 +2862,31 @@ export default function Home() {
                       </p>
 
                       <p className="mt-3 text-sm leading-6 text-zinc-500">
-                        For professional opportunities, research, and project
+                        For
+                        professional
+                        opportunities,
+                        research,
+                        and
+                        project
                         inquiries.
                       </p>
-
                     </div>
 
                     <div className="mt-7 flex items-center justify-between border-t border-white/[0.06] pt-5">
-
                       <span className="text-sm font-semibold text-cyan-300">
                         Contact me
                       </span>
 
                       <EmailIcon />
-
                     </div>
-
                   </motion.a>
 
                   {/* LINKEDIN */}
 
                   <motion.a
-                    href={links.linkedin}
+                    href={
+                      links.linkedin
+                    }
                     target="_blank"
                     rel="noreferrer"
                     initial={{
@@ -2520,11 +2909,8 @@ export default function Home() {
                     }}
                     className="group relative flex min-h-[235px] flex-col justify-between overflow-hidden rounded-[28px] border border-white/[0.07] bg-black/20 p-7 text-left transition duration-300 hover:border-cyan-400/20 hover:bg-white/[0.025]"
                   >
-
                     <div>
-
                       <div className="flex items-start justify-between">
-
                         <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300">
                           <LinkedInIcon />
                         </div>
@@ -2532,7 +2918,6 @@ export default function Home() {
                         <span className="text-zinc-700 transition duration-300 group-hover:translate-x-1 group-hover:text-cyan-300">
                           <ArrowIcon />
                         </span>
-
                       </div>
 
                       <p className="mt-7 text-lg font-semibold text-white">
@@ -2540,28 +2925,29 @@ export default function Home() {
                       </p>
 
                       <p className="mt-3 text-sm leading-6 text-zinc-500">
-                        Professional experience, background, and career
+                        Professional
+                        experience,
+                        background,
+                        and career
                         updates.
                       </p>
-
                     </div>
 
                     <div className="mt-7 flex items-center justify-between border-t border-white/[0.06] pt-5">
-
                       <span className="text-sm font-semibold text-cyan-300">
                         LinkedIn
                       </span>
 
                       <LinkedInIcon />
-
                     </div>
-
                   </motion.a>
 
                   {/* GITHUB */}
 
                   <motion.a
-                    href={links.github}
+                    href={
+                      links.github
+                    }
                     target="_blank"
                     rel="noreferrer"
                     initial={{
@@ -2584,11 +2970,8 @@ export default function Home() {
                     }}
                     className="group relative flex min-h-[235px] flex-col justify-between overflow-hidden rounded-[28px] border border-white/[0.07] bg-black/20 p-7 text-left transition duration-300 hover:border-cyan-400/20 hover:bg-white/[0.025]"
                   >
-
                     <div>
-
                       <div className="flex items-start justify-between">
-
                         <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300">
                           <GitHubIcon />
                         </div>
@@ -2596,7 +2979,6 @@ export default function Home() {
                         <span className="text-zinc-700 transition duration-300 group-hover:translate-x-1 group-hover:text-cyan-300">
                           <ArrowIcon />
                         </span>
-
                       </div>
 
                       <p className="mt-7 text-lg font-semibold text-white">
@@ -2604,86 +2986,83 @@ export default function Home() {
                       </p>
 
                       <p className="mt-3 text-sm leading-6 text-zinc-500">
-                        Research, data science projects, and software
-                        development work.
+                        Research,
+                        data
+                        science
+                        projects,
+                        and
+                        software
+                        development
+                        work.
                       </p>
-
                     </div>
 
                     <div className="mt-7 flex items-center justify-between border-t border-white/[0.06] pt-5">
-
                       <span className="text-sm font-semibold text-cyan-300">
                         GitHub
                       </span>
 
                       <GitHubIcon />
-
                     </div>
-
                   </motion.a>
-
                 </div>
-
               </div>
-
             </motion.div>
-
           </div>
-
         </section>
 
-        {/* FOOTER */}
+        {/* =================================================
+            FOOTER
+        ================================================= */}
 
         <footer className="border-t border-white/[0.07] bg-[#07090d]/70 px-6 py-10 backdrop-blur-xl lg:px-8">
-
           <div className="mx-auto flex max-w-7xl flex-col gap-7 md:flex-row md:items-center md:justify-between">
-
             <div>
-
               <p className="text-base font-semibold tracking-[-0.01em] text-white">
-                El Mehdi Bensouda
+                El Mehdi
+                Bensouda
               </p>
 
               <p className="mt-1 text-sm text-zinc-500">
                 Data Science
               </p>
-
             </div>
 
             <div className="flex flex-wrap items-center gap-6 text-sm text-zinc-500">
-
               <a
-                href={links.linkedin}
+                href={
+                  links.linkedin
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 transition hover:text-white"
               >
-
                 <span>
                   LinkedIn
                 </span>
 
                 <LinkedInIcon />
-
               </a>
 
               <a
-                href={links.github}
+                href={
+                  links.github
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 transition hover:text-white"
               >
-
                 <span>
                   GitHub
                 </span>
 
                 <GitHubIcon />
-
               </a>
 
               <a
-                href={resumePath}
+                href={
+                  resumePath
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="transition hover:text-white"
@@ -2697,23 +3076,17 @@ export default function Home() {
               >
                 Back to top ↑
               </a>
-
             </div>
-
           </div>
 
           <div className="mx-auto mt-8 max-w-7xl border-t border-white/[0.05] pt-6">
-
             <p className="text-xs text-zinc-700">
-              © 2026 El Mehdi Bensouda
+              © 2026 El
+              Mehdi Bensouda
             </p>
-
           </div>
-
         </footer>
-
       </div>
-
     </main>
   );
 }
