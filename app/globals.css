@@ -2,11 +2,14 @@
 
 html {
   scroll-behavior: smooth;
+  background: #07090d;
 }
 
 body {
   margin: 0;
-  background: white;
+  background: #07090d;
+  color: white;
+  overflow-x: hidden;
 }
 
 * {
@@ -14,6 +17,27 @@ body {
 }
 
 ::selection {
-  background: #111;
-  color: white;
+  background: #67e8f9;
+  color: #07090d;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #07090d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #252a33;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a414d;
+}
+
+a {
+  text-decoration: none;
 }
