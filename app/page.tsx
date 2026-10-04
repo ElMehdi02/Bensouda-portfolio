@@ -11,45 +11,89 @@ const resumePath =
     ? "/Bensouda-portfolio/resume.pdf"
     : "/resume.pdf";
 
+const socialMediaPresentation =
+  process.env.NODE_ENV === "production"
+    ? "/Bensouda-portfolio/projects/social-media-impact-study.pdf"
+    : "/projects/social-media-impact-study.pdf";
+
 const links = {
   email: "mailto:bensoudae@duq.edu",
   linkedin: "https://www.linkedin.com/in/elmehdibensouda/",
   github: "https://github.com/ElMehdi02",
+  gtexResearch:
+    "https://github.com/ElMehdi02/GTEx-gene-expression-research/blob/main/notebook/data_exploration1.ipynb",
 };
 
-const projects = [
+const animatedPhrases = [
+  "working with real data.",
+  "exploring machine learning.",
+  "building useful solutions.",
+  "learning through research.",
+];
+
+const experiences = [
   {
-    number: "01",
-    category: "Research",
-    title: "GTEx Gene Expression Research",
+    date: "Sep 2026 — Present",
+    type: "Research",
+    role: "GTEx Gene Expression Research",
+    company: "Duquesne University",
+    location: "Pittsburgh, PA",
     description:
-      "Analyzing GTEx V11 RNA-seq data with more than 74,000 genes and 170+ samples. I clean, filter, visualize, and explore gene-expression patterns using Python.",
-    tech: ["Python", "Pandas", "NumPy", "Matplotlib"],
-    image: `${basePath}/images/gtex-project.png`,
+      "Ongoing research analyzing large-scale GTEx V11 RNA-seq data to explore gene-expression patterns across human tissues.",
+    bullets: [
+      "Analyze GTEx V11 RNA-seq data containing 74,000+ genes and 170+ samples using Python.",
+      "Use Pandas, NumPy, and Matplotlib to clean, organize, and visualize gene-expression data.",
+      "Perform quality control and exploratory analysis to examine sequencing depth, gene expression, and sample variation.",
+      "Build gene-by-tissue datasets for tissue-specific expression analysis.",
+      "Current work includes normalizing expression values and exploring tissue-specific patterns.",
+    ],
+    tech: ["Python", "Pandas", "NumPy", "Matplotlib", "RNA-seq"],
+    featured: true,
   },
   {
-    number: "02",
-    category: "Data Analytics",
-    title: "Data Analytics & Dashboards",
+    date: "May 2025 — Present",
+    type: "Employment",
+    role: "Operations Assistant & Data Analyst",
+    company: "Duquesne University • Residence Life",
+    location: "Pittsburgh, PA",
     description:
-      "Working with operational and organizational data to clean datasets, identify trends, create reports, and communicate useful insights.",
-    tech: ["Python", "SQL", "Power BI", "Tableau"],
-    image: `${basePath}/images/dashboard-project.png`,
+      "Support Residence Life operations through data analysis, reporting, inventory tracking, and workflow organization.",
+    bullets: [
+      "Analyze housing, inventory, maintenance, and occupancy data to support Residence Life operations.",
+      "Create Excel reports and dashboards for inventory tracking and operational planning.",
+      "Maintain and clean records to improve data accuracy and organization.",
+      "Support workflow improvements and student-service operations.",
+    ],
+    tech: ["Excel", "Data Cleaning", "Reporting", "Dashboards"],
+    featured: false,
   },
   {
-    number: "03",
-    category: "Statistics",
-    title: "Statistical Analysis",
+    date: "Jan 2026 — Present",
+    type: "Internship",
+    role: "Data Science Intern",
+    company: "Attawheed Islamic Center",
+    location: "Pittsburgh, PA",
     description:
-      "Applying regression, correlation, hypothesis testing, confidence intervals, and visualization to understand relationships in data.",
-    tech: ["R", "Statistics", "Regression", "Visualization"],
-    image: `${basePath}/images/statistics-project.png`,
+      "Work with organizational data to support reporting, analytics, visualization, and introductory machine-learning workflows.",
+    bullets: [
+      "Clean and preprocess membership, attendance, event, and program data using Python, Pandas, and SQL.",
+      "Perform exploratory data analysis to identify patterns and trends.",
+      "Create dashboards and visual reports using Power BI and Tableau.",
+      "Assist with machine-learning models using scikit-learn.",
+      "Validate data quality and document analytical methods.",
+    ],
+    tech: ["Python", "SQL", "Power BI", "Tableau", "Scikit-learn"],
+    featured: false,
   },
 ];
 
 const skills = [
   {
+    number: "01",
+    type: "data",
     title: "Data & Machine Learning",
+    description:
+      "Working with data from exploration and preprocessing through modeling and evaluation.",
     items: [
       "Python",
       "Pandas",
@@ -60,52 +104,60 @@ const skills = [
     ],
   },
   {
+    number: "02",
+    type: "analytics",
     title: "Analytics",
-    items: ["R", "SQL", "Excel", "Power BI", "Tableau", "Data Wrangling"],
+    description:
+      "Turning datasets into useful insights through analysis, reporting, and visualization.",
+    items: [
+      "R",
+      "SQL",
+      "Excel",
+      "Power BI",
+      "Tableau",
+      "Data Wrangling",
+    ],
   },
   {
+    number: "03",
+    type: "development",
     title: "Development",
-    items: ["JavaScript", "Java", "C", "Next.js", "React", "TypeScript"],
+    description:
+      "Building software and web projects while strengthening programming fundamentals.",
+    items: [
+      "JavaScript",
+      "Java",
+      "C",
+      "Next.js",
+      "React",
+      "TypeScript",
+    ],
   },
   {
+    number: "04",
+    type: "languages",
     title: "Languages",
+    description:
+      "Communicating across different environments, teams, and communities.",
     items: ["English", "French", "Arabic"],
   },
 ];
 
-const experiences = [
-  {
-    date: "Sep 2026 — Present",
-    role: "Research Experience",
-    company: "GTEx Gene Expression Research • Duquesne University",
-    description:
-      "Analyzing large RNA-seq datasets with Python, performing quality control, exploratory analysis, filtering, and visualization of gene-expression data.",
-  },
-  {
-    date: "May 2025 — Present",
-    role: "Operations Assistant & Data Analyst",
-    company: "Duquesne University • Residence Life",
-    description:
-      "Analyzing housing, inventory, maintenance, and occupancy data while creating Excel reports and dashboards to support operational planning.",
-  },
-  {
-    date: "Jan 2026 — Present",
-    role: "Data Science Intern",
-    company: "Attawheed Islamic Center",
-    description:
-      "Cleaning organizational data with Python and SQL, performing exploratory analysis, creating Power BI and Tableau dashboards, and assisting with machine-learning models.",
-  },
-];
-
-const animatedPhrases = [
-  "working with real data.",
-  "exploring machine learning.",
-  "building useful solutions.",
-  "learning through research.",
+const marqueeSkills = [
+  "Python",
+  "Machine Learning",
+  "SQL",
+  "Pandas",
+  "Power BI",
+  "React",
+  "Statistics",
+  "Data Visualization",
+  "NumPy",
+  "Tableau",
 ];
 
 /* =========================================================
-   ANIMATED DOT BACKGROUND
+   BACKGROUND FOR ALL OTHER SECTIONS
 ========================================================= */
 
 function AnimatedDataBackground() {
@@ -113,22 +165,19 @@ function AnimatedDataBackground() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-
     if (!ctx) return;
 
     const context: CanvasRenderingContext2D = ctx;
 
     let animationFrame = 0;
     let time = 0;
-
     let width = window.innerWidth;
     let height = window.innerHeight;
 
-    type DataPoint = {
+    type Point = {
       x: number;
       baseY: number;
       radius: number;
@@ -136,7 +185,7 @@ function AnimatedDataBackground() {
       speed: number;
     };
 
-    type FloatingNumber = {
+    type NumberItem = {
       x: number;
       y: number;
       value: string;
@@ -144,12 +193,12 @@ function AnimatedDataBackground() {
       speed: number;
     };
 
-    const points: DataPoint[] = [];
-    const floatingNumbers: FloatingNumber[] = [];
+    const points: Point[] = [];
+    const numbers: NumberItem[] = [];
 
     function createData() {
       points.length = 0;
-      floatingNumbers.length = 0;
+      numbers.length = 0;
 
       const spacing = width < 768 ? 65 : 50;
 
@@ -172,7 +221,7 @@ function AnimatedDataBackground() {
       const numberCount = width < 768 ? 7 : 15;
 
       for (let i = 0; i < numberCount; i++) {
-        floatingNumbers.push({
+        numbers.push({
           x: Math.random() * width,
           y: Math.random() * height,
           value: (Math.random() * 100).toFixed(2),
@@ -199,28 +248,23 @@ function AnimatedDataBackground() {
       createData();
     }
 
-    function getPointY(point: DataPoint) {
-      const mainWave =
+    function getPointY(point: Point) {
+      const wave1 =
         Math.sin(point.x * 0.008 + time * point.speed) * 22;
 
-      const secondWave =
+      const wave2 =
         Math.cos(point.baseY * 0.009 + time * 0.5) * 10;
 
-      const individualMovement =
+      const movement =
         Math.sin(time * 1.2 + point.phase) * 7;
 
-      return (
-        point.baseY +
-        mainWave +
-        secondWave +
-        individualMovement
-      );
+      return point.baseY + wave1 + wave2 + movement;
     }
 
     function drawGrid() {
       context.save();
 
-      context.strokeStyle = "rgba(70, 170, 230, 0.025)";
+      context.strokeStyle = "rgba(70,170,230,0.025)";
       context.lineWidth = 0.5;
 
       const gridSize = 80;
@@ -258,16 +302,20 @@ function AnimatedDataBackground() {
 
         if (distanceX > 100 || distanceY > 100) continue;
 
-        const y1 = getPointY(current);
-        const y2 = getPointY(next);
-
         context.beginPath();
 
-        context.moveTo(current.x, y1);
-        context.lineTo(next.x, y2);
+        context.moveTo(
+          current.x,
+          getPointY(current)
+        );
+
+        context.lineTo(
+          next.x,
+          getPointY(next)
+        );
 
         context.strokeStyle =
-          "rgba(65, 190, 255, 0.05)";
+          "rgba(65,190,255,0.05)";
 
         context.stroke();
       }
@@ -283,42 +331,6 @@ function AnimatedDataBackground() {
           0.5 +
           Math.sin(time * 1.8 + point.phase) * 0.35;
 
-        if (point.radius > 1.45) {
-          const gradient =
-            context.createRadialGradient(
-              point.x,
-              y,
-              0,
-              point.x,
-              y,
-              12
-            );
-
-          gradient.addColorStop(
-            0,
-            "rgba(80, 220, 255, 0.18)"
-          );
-
-          gradient.addColorStop(
-            1,
-            "rgba(80, 220, 255, 0)"
-          );
-
-          context.beginPath();
-
-          context.arc(
-            point.x,
-            y,
-            12,
-            0,
-            Math.PI * 2
-          );
-
-          context.fillStyle = gradient;
-
-          context.fill();
-        }
-
         context.beginPath();
 
         context.arc(
@@ -329,7 +341,7 @@ function AnimatedDataBackground() {
           Math.PI * 2
         );
 
-        context.fillStyle = `rgba(100, 220, 255, ${
+        context.fillStyle = `rgba(100,220,255,${
           0.18 + pulse * 0.18
         })`;
 
@@ -338,16 +350,9 @@ function AnimatedDataBackground() {
     }
 
     function drawNumbers() {
-      floatingNumbers.forEach((item, index) => {
+      numbers.forEach((item, index) => {
         const offsetY =
-          Math.sin(
-            time * item.speed + item.phase
-          ) * 10;
-
-        const offsetX =
-          Math.cos(
-            time * 0.2 + item.phase
-          ) * 3;
+          Math.sin(time * item.speed + item.phase) * 10;
 
         context.font =
           width < 768
@@ -355,11 +360,11 @@ function AnimatedDataBackground() {
             : "11px monospace";
 
         context.fillStyle =
-          "rgba(130, 215, 255, 0.16)";
+          "rgba(130,215,255,0.15)";
 
         context.fillText(
           item.value,
-          item.x + offsetX,
+          item.x,
           item.y + offsetY
         );
 
@@ -383,26 +388,17 @@ function AnimatedDataBackground() {
       drawPoints();
       drawNumbers();
 
-      animationFrame =
-        requestAnimationFrame(draw);
+      animationFrame = requestAnimationFrame(draw);
     }
 
     resizeCanvas();
-
     draw();
 
-    window.addEventListener(
-      "resize",
-      resizeCanvas
-    );
+    window.addEventListener("resize", resizeCanvas);
 
     return () => {
       cancelAnimationFrame(animationFrame);
-
-      window.removeEventListener(
-        "resize",
-        resizeCanvas
-      );
+      window.removeEventListener("resize", resizeCanvas);
     };
   }, []);
 
@@ -416,13 +412,569 @@ function AnimatedDataBackground() {
 }
 
 /* =========================================================
+   NEW HERO-ONLY ANIMATION
+   This moves numbers, plots and bars over data-bg.png
+========================================================= */
+
+function HeroDataAnimation() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) return;
+
+    const context: CanvasRenderingContext2D = ctx;
+
+    let frame = 0;
+    let time = 0;
+    let width = 0;
+    let height = 0;
+
+    type FloatingNumber = {
+      x: number;
+      y: number;
+      value: number;
+      phase: number;
+      speed: number;
+      decimal: boolean;
+    };
+
+    type Particle = {
+      x: number;
+      y: number;
+      baseY: number;
+      radius: number;
+      phase: number;
+    };
+
+    const floatingNumbers: FloatingNumber[] = [];
+    const particles: Particle[] = [];
+
+    function createScene() {
+      floatingNumbers.length = 0;
+      particles.length = 0;
+
+      const positions = [
+        [0.15, 0.28],
+        [0.28, 0.21],
+        [0.36, 0.37],
+        [0.52, 0.20],
+        [0.66, 0.29],
+        [0.83, 0.32],
+        [0.91, 0.48],
+        [0.74, 0.69],
+        [0.58, 0.80],
+        [0.25, 0.75],
+      ];
+
+      positions.forEach(([x, y], index) => {
+        floatingNumbers.push({
+          x: width * x,
+          y: height * y,
+          value:
+            index % 3 === 0
+              ? Math.random()
+              : Math.random() * 100,
+          phase: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.35 + 0.2,
+          decimal: index % 3 === 0,
+        });
+      });
+
+      for (let i = 0; i < 85; i++) {
+        const x = width * 0.36 + Math.random() * width * 0.62;
+
+        const baseY =
+          height * 0.45 +
+          Math.sin(x * 0.012) * 80 +
+          Math.random() * 120;
+
+        particles.push({
+          x,
+          y: baseY,
+          baseY,
+          radius: Math.random() * 1.3 + 0.4,
+          phase: Math.random() * Math.PI * 2,
+        });
+      }
+    }
+
+    function resize() {
+      const parent = canvas.parentElement;
+
+      if (!parent) return;
+
+      const rect = parent.getBoundingClientRect();
+
+      width = rect.width;
+      height = rect.height;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      createScene();
+    }
+
+    function drawFloatingNumbers() {
+      floatingNumbers.forEach((item, index) => {
+        const floatY =
+          Math.sin(
+            time * item.speed +
+              item.phase
+          ) * 7;
+
+        const floatX =
+          Math.cos(
+            time * 0.25 +
+              item.phase
+          ) * 3;
+
+        if (
+          Math.floor(time * 18) %
+            (70 + index * 3) ===
+          0
+        ) {
+          item.value = item.decimal
+            ? Math.random()
+            : Math.random() * 100;
+        }
+
+        const formatted = item.decimal
+          ? item.value.toFixed(3)
+          : item.value.toFixed(2);
+
+        context.save();
+
+        context.font =
+          width < 700
+            ? "10px monospace"
+            : "13px monospace";
+
+        context.fillStyle =
+          "rgba(107, 210, 255, 0.19)";
+
+        context.fillText(
+          formatted,
+          item.x + floatX,
+          item.y + floatY
+        );
+
+        context.restore();
+      });
+    }
+
+    function drawParticles() {
+      particles.forEach((particle) => {
+        particle.y =
+          particle.baseY +
+          Math.sin(
+            time * 0.7 +
+              particle.phase
+          ) *
+            8;
+
+        const pulse =
+          0.5 +
+          Math.sin(
+            time * 1.1 +
+              particle.phase
+          ) *
+            0.35;
+
+        context.beginPath();
+
+        context.arc(
+          particle.x,
+          particle.y,
+          particle.radius +
+            pulse * 0.25,
+          0,
+          Math.PI * 2
+        );
+
+        context.fillStyle = `rgba(
+          90,
+          210,
+          255,
+          ${0.08 + pulse * 0.12}
+        )`;
+
+        context.fill();
+      });
+    }
+
+    function drawLineChart(
+      x: number,
+      y: number,
+      w: number,
+      h: number,
+      seed: number
+    ) {
+      context.save();
+
+      context.strokeStyle =
+        "rgba(90,180,255,0.08)";
+
+      context.lineWidth = 0.8;
+
+      context.strokeRect(
+        x,
+        y,
+        w,
+        h
+      );
+
+      for (let i = 1; i <= 3; i++) {
+        context.beginPath();
+
+        context.moveTo(
+          x,
+          y + (h / 4) * i
+        );
+
+        context.lineTo(
+          x + w,
+          y + (h / 4) * i
+        );
+
+        context.strokeStyle =
+          "rgba(90,180,255,0.04)";
+
+        context.stroke();
+      }
+
+      context.beginPath();
+
+      for (
+        let px = 0;
+        px <= w;
+        px += 3
+      ) {
+        const py =
+          h * 0.56 -
+          Math.sin(
+            px * 0.055 +
+              time * 0.7 +
+              seed
+          ) *
+            h *
+            0.16 -
+          Math.cos(
+            px * 0.025 +
+              time * 0.37
+          ) *
+            h *
+            0.11;
+
+        if (px === 0) {
+          context.moveTo(
+            x + px,
+            y + py
+          );
+        } else {
+          context.lineTo(
+            x + px,
+            y + py
+          );
+        }
+      }
+
+      context.strokeStyle =
+        "rgba(83,210,255,0.32)";
+
+      context.lineWidth = 1.2;
+
+      context.stroke();
+
+      context.restore();
+    }
+
+    function drawBarChart(
+      x: number,
+      y: number,
+      w: number,
+      h: number
+    ) {
+      context.save();
+
+      context.strokeStyle =
+        "rgba(90,180,255,0.08)";
+
+      context.strokeRect(
+        x,
+        y,
+        w,
+        h
+      );
+
+      const count = 6;
+
+      const gap = 7;
+
+      const barWidth =
+        (w -
+          gap * (count + 1)) /
+        count;
+
+      for (let i = 0; i < count; i++) {
+        const dynamicHeight =
+          h * 0.18 +
+          (Math.sin(
+            time * 0.65 +
+              i * 0.7
+          ) *
+            0.5 +
+            0.5) *
+            h *
+            0.55;
+
+        const barX =
+          x +
+          gap +
+          i * (barWidth + gap);
+
+        const gradient =
+          context.createLinearGradient(
+            0,
+            y + h,
+            0,
+            y +
+              h -
+              dynamicHeight
+          );
+
+        gradient.addColorStop(
+          0,
+          "rgba(65,120,255,0.08)"
+        );
+
+        gradient.addColorStop(
+          1,
+          "rgba(85,215,255,0.3)"
+        );
+
+        context.fillStyle = gradient;
+
+        context.fillRect(
+          barX,
+          y +
+            h -
+            dynamicHeight,
+          barWidth,
+          dynamicHeight
+        );
+      }
+
+      context.restore();
+    }
+
+    function drawMainWave() {
+      const startX =
+        width * 0.34;
+
+      const endX =
+        width * 1.02;
+
+      const baseY =
+        height * 0.59;
+
+      context.save();
+
+      for (let layer = 0; layer < 3; layer++) {
+        context.beginPath();
+
+        for (
+          let x = startX;
+          x <= endX;
+          x += 4
+        ) {
+          const relativeX =
+            x - startX;
+
+          const y =
+            baseY +
+            layer * 15 +
+            Math.sin(
+              relativeX * 0.014 +
+                time *
+                  (0.55 +
+                    layer * 0.12)
+            ) *
+              38 +
+            Math.sin(
+              relativeX * 0.006 +
+                time * 0.32
+            ) *
+              52;
+
+          if (x === startX) {
+            context.moveTo(x, y);
+          } else {
+            context.lineTo(x, y);
+          }
+        }
+
+        context.strokeStyle =
+          layer === 0
+            ? "rgba(64,210,255,0.23)"
+            : layer === 1
+            ? "rgba(65,145,255,0.14)"
+            : "rgba(120,95,255,0.10)";
+
+        context.lineWidth =
+          layer === 0 ? 1.4 : 1;
+
+        context.stroke();
+      }
+
+      context.restore();
+    }
+
+    function drawLabels() {
+      const labels = [
+        {
+          text: "MACHINE LEARNING",
+          x: width * 0.19,
+          y: height * 0.17,
+        },
+        {
+          text: "RESEARCH",
+          x: width * 0.86,
+          y: height * 0.17,
+        },
+        {
+          text: "PREDICTION",
+          x: width * 0.56,
+          y: height * 0.82,
+        },
+        {
+          text: "ANALYZE",
+          x: width * 0.87,
+          y: height * 0.30,
+        },
+      ];
+
+      context.save();
+
+      context.font =
+        width < 700
+          ? "8px monospace"
+          : "10px monospace";
+
+      context.fillStyle =
+        "rgba(110,190,255,0.10)";
+
+      labels.forEach((label) => {
+        context.fillText(
+          label.text,
+          label.x,
+          label.y
+        );
+      });
+
+      context.restore();
+    }
+
+    function draw() {
+      context.clearRect(
+        0,
+        0,
+        width,
+        height
+      );
+
+      time += 0.016;
+
+      drawParticles();
+
+      drawMainWave();
+
+      drawFloatingNumbers();
+
+      drawLabels();
+
+      if (width > 700) {
+        drawBarChart(
+          width * 0.86,
+          height * 0.12,
+          110,
+          72
+        );
+
+        drawLineChart(
+          width * 0.87,
+          height * 0.45,
+          120,
+          65,
+          1
+        );
+
+        drawLineChart(
+          width * 0.55,
+          height * 0.79,
+          160,
+          70,
+          2
+        );
+
+        drawBarChart(
+          width * 0.15,
+          height * 0.68,
+          90,
+          60
+        );
+      }
+
+      frame =
+        requestAnimationFrame(draw);
+    }
+
+    resize();
+    draw();
+
+    window.addEventListener(
+      "resize",
+      resize
+    );
+
+    return () => {
+      cancelAnimationFrame(frame);
+
+      window.removeEventListener(
+        "resize",
+        resize
+      );
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none absolute inset-0 z-[3] h-full w-full"
+      aria-hidden="true"
+    />
+  );
+}
+
+/* =========================================================
    ICONS
 ========================================================= */
 
 function LinkedInIcon() {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
       className="h-4 w-4"
@@ -453,7 +1005,6 @@ function GitHubIcon() {
 function EmailIcon() {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -476,6 +1027,106 @@ function EmailIcon() {
   );
 }
 
+function ArrowIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-4 w-4"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14" />
+      <path d="m13 6 6 6-6 6" />
+    </svg>
+  );
+}
+
+function SkillIcon({
+  type,
+}: {
+  type: string;
+}) {
+  if (type === "data") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="h-6 w-6"
+      >
+        <ellipse
+          cx="12"
+          cy="5"
+          rx="7"
+          ry="3"
+        />
+
+        <path d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5" />
+
+        <path d="M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" />
+      </svg>
+    );
+  }
+
+  if (type === "analytics") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="h-6 w-6"
+      >
+        <path d="M4 19V9" />
+        <path d="M10 19V5" />
+        <path d="M16 19v-7" />
+        <path d="M22 19V3" />
+      </svg>
+    );
+  }
+
+  if (type === "development") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        className="h-6 w-6"
+      >
+        <path d="m8 9-4 3 4 3" />
+        <path d="m16 9 4 3-4 3" />
+        <path d="m14 5-4 14" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      className="h-6 w-6"
+    >
+      <path d="M4 5h16" />
+      <path d="M9 3v2" />
+      <path d="M15 3v2" />
+      <path d="M6 9c2 4 5 7 9 9" />
+      <path d="M17 8c-2 5-5 8-10 11" />
+    </svg>
+  );
+}
+
+/* =========================================================
+   SECTION LABEL
+========================================================= */
+
 function SectionLabel({
   children,
 }: {
@@ -489,7 +1140,367 @@ function SectionLabel({
 }
 
 /* =========================================================
-   PAGE
+   RESEARCH WORKFLOW
+========================================================= */
+
+function ResearchWorkflow() {
+  const steps = [
+    {
+      number: "01",
+      title: "Prepare",
+      description:
+        "Load and organize GTEx V11 gene-expression data.",
+      status: "Completed",
+    },
+    {
+      number: "02",
+      title: "Clean",
+      description:
+        "Check missing values and remove genes with zero expression across tissues.",
+      status: "Completed",
+    },
+    {
+      number: "03",
+      title: "Structure",
+      description:
+        "Create a gene-by-tissue expression table for analysis.",
+      status: "Completed",
+    },
+    {
+      number: "04",
+      title: "Normalize",
+      description:
+        "Convert tissue-expression values into relative values for each gene.",
+      status: "Next Step",
+    },
+    {
+      number: "05",
+      title: "Explore",
+      description:
+        "Study tissue-specific expression patterns and compare genes across tissues.",
+      status: "Upcoming",
+    },
+  ];
+
+  return (
+    <div className="relative min-h-[650px] overflow-hidden bg-[#0a0f17] p-8 md:p-10">
+      <div className="pointer-events-none absolute right-[-120px] top-[-120px] h-[350px] w-[350px] rounded-full bg-cyan-500/[0.08] blur-[120px]" />
+
+      <div className="relative">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-400">
+              Research workflow
+            </p>
+
+            <p className="mt-2 text-sm text-zinc-600">
+              Current GTEx analysis progress
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/[0.06] px-4 py-2 text-xs text-amber-300">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-amber-300" />
+
+            Ongoing
+          </div>
+        </div>
+
+        <div className="relative mt-10 h-[150px] overflow-hidden rounded-[24px] border border-white/[0.07] bg-black/30">
+          <svg
+            viewBox="0 0 600 150"
+            className="absolute inset-0 h-full w-full"
+          >
+            <motion.path
+              d="M0 110 C70 110, 80 65, 145 70 C210 75, 210 35, 275 45 C340 55, 360 105, 420 88 C480 70, 505 28, 600 40"
+              fill="none"
+              stroke="rgba(34,211,238,0.8)"
+              strokeWidth="2"
+              initial={{
+                pathLength: 0,
+              }}
+              whileInView={{
+                pathLength: 1,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                duration: 2,
+              }}
+            />
+          </svg>
+
+          <p className="absolute bottom-4 left-5 text-[10px] uppercase tracking-[0.25em] text-zinc-600">
+            Gene expression signal
+          </p>
+        </div>
+
+        <div className="mt-8 space-y-3">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.number}
+              initial={{
+                opacity: 0,
+                x: 30,
+              }}
+              whileInView={{
+                opacity: 1,
+                x: 0,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                delay: index * 0.07,
+              }}
+              className="grid grid-cols-[40px_1fr_auto] items-center gap-4 rounded-[20px] border border-white/[0.06] bg-white/[0.025] p-4"
+            >
+              <span className="font-mono text-xs text-cyan-400">
+                {step.number}
+              </span>
+
+              <div>
+                <p className="font-semibold text-white">
+                  {step.title}
+                </p>
+
+                <p className="mt-1 text-xs leading-5 text-zinc-500">
+                  {step.description}
+                </p>
+              </div>
+
+              <span
+                className={`rounded-full border px-3 py-1 text-[10px] ${
+                  step.status === "Completed"
+                    ? "border-emerald-400/20 bg-emerald-400/[0.06] text-emerald-300"
+                    : step.status === "Next Step"
+                    ? "border-cyan-400/20 bg-cyan-400/[0.06] text-cyan-300"
+                    : "border-white/[0.07] text-zinc-600"
+                }`}
+              >
+                {step.status}
+              </span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   EXPERIENCE CARD
+========================================================= */
+
+function ExperienceCard({
+  experience,
+  index,
+}: {
+  experience: (typeof experiences)[number];
+  index: number;
+}) {
+  return (
+    <motion.article
+      initial={{
+        opacity: 0,
+        y: 55,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      viewport={{
+        once: true,
+        amount: 0.2,
+      }}
+      transition={{
+        duration: 0.7,
+        delay: index * 0.08,
+      }}
+      className={`relative overflow-hidden rounded-[32px] border p-8 backdrop-blur-xl md:p-10 ${
+        experience.featured
+          ? "border-cyan-400/15 bg-gradient-to-br from-cyan-400/[0.05] via-[#0d1016]/90 to-[#0d1016]/90"
+          : "border-white/[0.07] bg-[#0d1016]/80"
+      }`}
+    >
+      <div className="relative grid gap-8 lg:grid-cols-[180px_1fr]">
+        <div>
+          <p className="text-sm text-zinc-500">
+            {experience.date}
+          </p>
+
+          <span className="mt-4 inline-flex rounded-full border border-cyan-400/15 bg-cyan-400/[0.04] px-3 py-1 text-xs font-medium text-cyan-300">
+            {experience.type}
+          </span>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-semibold tracking-[-0.03em] md:text-3xl">
+            {experience.role}
+          </h3>
+
+          <p className="mt-2 font-medium text-cyan-400">
+            {experience.company}
+          </p>
+
+          <p className="mt-1 text-sm text-zinc-600">
+            {experience.location}
+          </p>
+
+          <p className="mt-6 max-w-3xl leading-7 text-zinc-500">
+            {experience.description}
+          </p>
+
+          <div className="mt-7 space-y-3">
+            {experience.bullets.map((bullet) => (
+              <div
+                key={bullet}
+                className="flex gap-3"
+              >
+                <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
+
+                <p className="leading-7 text-zinc-300">
+                  {bullet}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-2">
+            {experience.tech.map((tech) => (
+              <span
+                key={tech}
+                className="rounded-full border border-white/[0.08] bg-black/20 px-4 py-2 text-xs text-zinc-400"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+/* =========================================================
+   SKILL CARD
+========================================================= */
+
+function SkillCard({
+  skill,
+  index,
+}: {
+  skill: (typeof skills)[number];
+  index: number;
+}) {
+  return (
+    <motion.article
+      initial={{
+        opacity: 0,
+        y: 65,
+        scale: 0.97,
+      }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+        scale: 1,
+      }}
+      whileHover={{
+        y: -8,
+      }}
+      viewport={{
+        once: true,
+        amount: 0.25,
+      }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.08,
+      }}
+      className="group relative overflow-hidden rounded-[32px] border border-white/[0.08] bg-[#0d1016]/80 p-8 shadow-2xl shadow-black/10 backdrop-blur-xl md:p-9"
+    >
+      <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-cyan-400/[0.00] blur-[90px] transition duration-700 group-hover:bg-cyan-400/[0.08]" />
+
+      <motion.div
+        initial={{
+          scaleX: 0,
+        }}
+        whileInView={{
+          scaleX: 1,
+        }}
+        viewport={{
+          once: true,
+        }}
+        transition={{
+          duration: 0.8,
+          delay: index * 0.1,
+        }}
+        className="absolute left-0 top-0 h-px w-full origin-left bg-gradient-to-r from-cyan-400/60 via-blue-400/20 to-transparent"
+      />
+
+      <div className="relative">
+        <div className="flex items-start justify-between gap-4">
+          <motion.div
+            whileHover={{
+              rotate: 8,
+              scale: 1.08,
+            }}
+            className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300"
+          >
+            <SkillIcon
+              type={skill.type}
+            />
+          </motion.div>
+
+          <span className="font-mono text-xs text-zinc-700">
+            {skill.number}
+          </span>
+        </div>
+
+        <h3 className="mt-8 text-2xl font-semibold tracking-[-0.03em]">
+          {skill.title}
+        </h3>
+
+        <p className="mt-3 max-w-lg text-sm leading-6 text-zinc-500">
+          {skill.description}
+        </p>
+
+        <div className="mt-8 flex flex-wrap gap-2">
+          {skill.items.map((item, itemIndex) => (
+            <motion.span
+              key={item}
+              initial={{
+                opacity: 0,
+                y: 12,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              whileHover={{
+                y: -3,
+                scale: 1.04,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                delay:
+                  index * 0.06 +
+                  itemIndex * 0.04,
+              }}
+              className="cursor-default rounded-full border border-white/[0.08] bg-black/25 px-4 py-2 text-sm text-zinc-400 transition-colors duration-300 hover:border-cyan-400/25 hover:bg-cyan-400/[0.05] hover:text-cyan-200"
+            >
+              {item}
+            </motion.span>
+          ))}
+        </div>
+      </div>
+    </motion.article>
+  );
+}
+
+/* =========================================================
+   HOME
 ========================================================= */
 
 export default function Home() {
@@ -505,15 +1516,14 @@ export default function Home() {
       );
     }, 2600);
 
-    return () => clearInterval(interval);
+    return () =>
+      clearInterval(interval);
   }, []);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#07090d] text-white">
-      {/* =================================================
-          DOTS BEHIND THE WEBSITE
-      ================================================= */}
 
+      {/* This stays for the sections after the hero */}
       <AnimatedDataBackground />
 
       {/* =================================================
@@ -569,9 +1579,11 @@ export default function Home() {
               href={links.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-5 py-2.5 text-white transition duration-300 hover:bg-white hover:text-black"
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-5 py-2.5 text-white transition hover:bg-white hover:text-black"
             >
-              <span>LinkedIn</span>
+              <span>
+                LinkedIn
+              </span>
 
               <LinkedInIcon />
             </a>
@@ -581,30 +1593,36 @@ export default function Home() {
 
       {/* =================================================
           HERO
+          Your image stays.
+          Only the numbers / graphs / plots now animate.
       ================================================= */}
 
       <section
         id="home"
         className="relative z-10 flex min-h-screen items-center overflow-hidden px-6 pt-28 lg:px-8"
       >
-        {/* HERO PICTURE */}
+        {/* YOUR ORIGINAL BACKGROUND IMAGE */}
 
         <div
-          className="absolute inset-0 z-[1] bg-cover bg-center opacity-55"
+          className="absolute inset-0 z-[1] bg-cover bg-center"
           style={{
             backgroundImage: `url(${basePath}/images/data-bg.png)`,
           }}
         />
 
-        {/* Slight zoom animation on the hero image */}
+        {/* Slow movement of the actual background image stays subtle */}
 
         <motion.div
           className="absolute inset-0 z-[2]"
           animate={{
-            scale: [1, 1.025, 1],
+            scale: [
+              1,
+              1.015,
+              1,
+            ],
           }}
           transition={{
-            duration: 18,
+            duration: 20,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -612,33 +1630,21 @@ export default function Home() {
             backgroundImage: `url(${basePath}/images/data-bg.png)`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            opacity: 0.18,
+            opacity: 0.12,
           }}
         />
 
-        {/* Dark left side so text stays readable */}
+        {/* NEW: moving numbers and plots */}
 
-        <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-r from-[#07090d]/98 via-[#07090d]/78 to-[#07090d]/15" />
+        <HeroDataAnimation />
 
-        {/* Dark top and bottom */}
+        {/* Keep text readable */}
 
-        <div className="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-b from-[#07090d]/35 via-transparent to-[#07090d]/85" />
+        <div className="absolute inset-0 z-[4] bg-gradient-to-r from-[#07090d]/97 via-[#07090d]/65 to-[#07090d]/15" />
 
-        {/* Hero glow */}
+        <div className="absolute inset-0 z-[4] bg-gradient-to-t from-[#07090d]/55 via-transparent to-[#07090d]/15" />
 
-        <motion.div
-          animate={{
-            x: [0, 80, -40, 0],
-            y: [0, -40, 35, 0],
-            scale: [1, 1.15, 0.95, 1],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="pointer-events-none absolute right-[5%] top-[20%] z-[4] h-[450px] w-[450px] rounded-full bg-cyan-500/10 blur-[150px]"
-        />
+        {/* HERO CONTENT */}
 
         <div className="relative z-10 mx-auto w-full max-w-7xl">
           <div className="max-w-5xl">
@@ -670,34 +1676,30 @@ export default function Home() {
               }}
               transition={{
                 duration: 0.9,
-                delay: 0.1,
               }}
-              className="max-w-6xl overflow-visible pb-8 text-6xl font-semibold leading-[1.12] tracking-[-0.06em] sm:text-7xl md:text-8xl lg:text-[110px]"
+              className="pb-8 text-6xl font-semibold leading-[1.12] tracking-[-0.06em] sm:text-7xl md:text-8xl lg:text-[110px]"
             >
               Turning data into
 
-              <span className="block overflow-visible bg-gradient-to-r from-white via-cyan-300 to-blue-400 bg-clip-text pb-6 leading-[1.18] text-transparent">
+              <span className="block overflow-visible bg-gradient-to-r from-white via-cyan-300 to-blue-400 bg-clip-text pb-5 leading-[1.16] text-transparent">
                 insights.
               </span>
             </motion.h1>
 
-            <div className="mt-1 flex min-h-[34px] flex-wrap items-center gap-2 text-lg text-zinc-300 md:text-xl">
-              <span>I enjoy</span>
+            <div className="flex min-h-[34px] flex-wrap gap-2 text-lg text-zinc-300 md:text-xl">
+              <span>
+                I enjoy
+              </span>
 
               <motion.span
                 key={phraseIndex}
                 initial={{
                   opacity: 0,
                   y: 12,
-                  filter: "blur(5px)",
                 }}
                 animate={{
                   opacity: 1,
                   y: 0,
-                  filter: "blur(0px)",
-                }}
-                transition={{
-                  duration: 0.45,
                 }}
                 className="font-semibold text-white"
               >
@@ -705,45 +1707,17 @@ export default function Home() {
               </motion.span>
             </div>
 
-            <motion.p
-              initial={{
-                opacity: 0,
-                y: 40,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 0.8,
-                delay: 0.35,
-              }}
-              className="mt-8 max-w-2xl text-lg leading-8 text-zinc-300 md:text-xl"
-            >
-              I&apos;m a Data Science student at Duquesne University
-              interested in machine learning, analytics, research, and
-              software development. My goal is to turn complex problems
-              into useful and understandable solutions.
-            </motion.p>
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-zinc-300 md:text-xl">
+              I&apos;m a Data Science student at Duquesne University interested
+              in machine learning, analytics, research, and software
+              development. My goal is to turn complex problems into useful and
+              understandable solutions.
+            </p>
 
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 30,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 0.8,
-                delay: 0.6,
-              }}
-              className="mt-10 flex flex-wrap items-center gap-4"
-            >
+            <div className="mt-10 flex flex-wrap gap-4">
               <a
                 href="#work"
-                className="rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black transition duration-300 hover:scale-105 hover:bg-cyan-300"
+                className="rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black transition hover:bg-cyan-300"
               >
                 Explore my work
               </a>
@@ -752,88 +1726,44 @@ export default function Home() {
                 href={resumePath}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-full border border-white/15 bg-black/35 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition duration-300 hover:scale-105 hover:bg-white/10"
+                className="rounded-full border border-white/15 bg-black/30 px-7 py-3.5 text-sm text-white backdrop-blur-lg transition hover:bg-white/10"
               >
                 Take a peek at my résumé 👀
               </a>
-            </motion.div>
-
-            <motion.div
-              animate={{
-                y: [0, 10, 0],
-              }}
-              transition={{
-                duration: 1.7,
-                repeat: Infinity,
-              }}
-              className="mt-20 text-xs uppercase tracking-[0.3em] text-zinc-500"
-            >
-              Scroll to explore ↓
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* =================================================
-          REST OF WEBSITE
-          ONLY DOTS BEHIND THESE SECTIONS
+          EVERYTHING BELOW HERE STAYS THE SAME
       ================================================= */}
 
       <div className="relative z-10 bg-[#07090d]/55 backdrop-blur-[1px]">
+
         {/* ABOUT */}
 
         <section
           id="about"
-          className="relative px-6 py-36 lg:px-8"
+          className="px-6 py-36 lg:px-8"
         >
           <div className="mx-auto max-w-7xl">
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 70,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.2,
-              }}
-              transition={{
-                duration: 0.8,
-              }}
-            >
-              <SectionLabel>About Me</SectionLabel>
+            <SectionLabel>
+              About Me
+            </SectionLabel>
 
-              <h2 className="max-w-5xl text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
-                Curious about data.
+            <h2 className="text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
+              Curious about data.
 
-                <span className="block text-zinc-600">
-                  Focused on solving problems.
-                </span>
-              </h2>
-            </motion.div>
+              <span className="block text-zinc-600">
+                Focused on solving problems.
+              </span>
+            </h2>
 
             <div className="mt-20 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  x: -100,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.25,
-                }}
-                transition={{
-                  duration: 0.9,
-                }}
-                className="relative min-h-[600px] overflow-hidden rounded-[32px] border border-white/10 bg-[#11151c]/85 shadow-2xl shadow-black/30 backdrop-blur-xl"
-              >
+
+              <div className="relative min-h-[600px] overflow-hidden rounded-[32px] border border-white/10">
+
                 <img
                   src={`${basePath}/images/mehdi.jpg`}
                   alt="El Mehdi Bensouda"
@@ -846,40 +1776,23 @@ export default function Home() {
                   </p>
 
                   <p className="mt-2 text-sm font-medium tracking-wide text-zinc-300">
-                    Data Science Student • Researcher • Data Analyst
+                    Data Science
                   </p>
                 </div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{
-                  opacity: 0,
-                  x: 100,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  x: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.25,
-                }}
-                transition={{
-                  duration: 0.9,
-                }}
-                className="flex flex-col justify-center rounded-[32px] border border-white/[0.08] bg-[#0d1016]/80 p-8 shadow-2xl shadow-black/20 backdrop-blur-xl md:p-12"
-              >
+              <div className="flex flex-col justify-center rounded-[32px] border border-white/[0.08] bg-[#0d1016]/80 p-8 backdrop-blur-xl md:p-12">
+
                 <p className="text-xl leading-9 text-zinc-300 md:text-2xl">
-                  I&apos;m studying Data Science at Duquesne University and I
-                  enjoy working with real datasets, finding patterns,
-                  building analytical solutions, and turning complex
-                  information into something useful.
+                  I&apos;m studying Data Science at Duquesne University and enjoy
+                  working with real datasets, finding patterns, building
+                  analytical solutions, and turning complex information into
+                  something useful.
                 </p>
 
                 <p className="mt-7 text-lg leading-8 text-zinc-500">
                   My interests include machine learning, data analytics,
-                  scientific research, visualization, and software
-                  development.
+                  scientific research, visualization, and software development.
                 </p>
 
                 <div className="mt-12 grid grid-cols-2 gap-4">
@@ -891,13 +1804,13 @@ export default function Home() {
                   ].map((item) => (
                     <div
                       key={item}
-                      className="rounded-2xl border border-white/[0.07] bg-black/25 p-5 text-sm text-zinc-300 backdrop-blur-lg transition duration-300 hover:border-cyan-400/20 hover:bg-white/[0.06]"
+                      className="rounded-2xl border border-white/[0.07] bg-black/25 p-5 text-sm text-zinc-300"
                     >
                       {item}
                     </div>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -906,141 +1819,227 @@ export default function Home() {
 
         <section
           id="work"
-          className="relative px-6 py-36 lg:px-8"
+          className="px-6 py-36 lg:px-8"
         >
           <div className="mx-auto max-w-7xl">
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 70,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                duration: 0.8,
-              }}
-              className="mb-24"
-            >
-              <SectionLabel>Selected Work</SectionLabel>
 
-              <h2 className="text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
-                Work that shows
+            <SectionLabel>
+              Selected Work
+            </SectionLabel>
 
-                <span className="block text-zinc-600">
-                  what I can do.
-                </span>
-              </h2>
-            </motion.div>
+            <h2 className="text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
+              Work that shows
 
-            <div className="space-y-10">
-              {projects.map((project, index) => (
-                <motion.article
-                  key={project.title}
-                  initial={{
-                    opacity: 0,
-                    x:
-                      index % 2 === 0
-                        ? -120
-                        : 120,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    x: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.2,
-                  }}
-                  transition={{
-                    duration: 0.9,
-                  }}
-                  className="group overflow-hidden rounded-[36px] border border-white/[0.08] bg-[#0d1016]/85 shadow-2xl shadow-black/20 backdrop-blur-xl"
-                >
-                  <div className="grid lg:grid-cols-2">
-                    <div
-                      className={`flex min-h-[520px] flex-col justify-between p-9 md:p-14 ${
-                        index % 2 !== 0
-                          ? "lg:order-2"
-                          : ""
-                      }`}
-                    >
-                      <div>
-                        <div className="flex items-center justify-between">
-                          <p className="text-sm font-medium text-cyan-400">
-                            {project.category}
-                          </p>
+              <span className="block text-zinc-600">
+                what I can do.
+              </span>
+            </h2>
 
-                          <span className="text-sm text-zinc-700">
-                            {project.number}
-                          </span>
-                        </div>
+            <div className="mt-20 space-y-10">
 
-                        <h3 className="mt-8 text-4xl font-semibold tracking-[-0.04em] md:text-6xl">
-                          {project.title}
-                        </h3>
+              {/* GTEx */}
 
-                        <p className="mt-7 max-w-xl text-lg leading-8 text-zinc-500">
-                          {project.description}
+              <motion.article
+                initial={{
+                  opacity: 0,
+                  y: 70,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                className="overflow-hidden rounded-[36px] border border-white/[0.08] bg-[#0d1016]/85"
+              >
+                <div className="grid lg:grid-cols-2">
+
+                  <div className="flex min-h-[650px] flex-col justify-between p-9 md:p-14">
+                    <div>
+
+                      <div className="flex items-center justify-between gap-4">
+
+                        <p className="text-sm text-cyan-400">
+                          Research
                         </p>
 
-                        <div className="mt-8 flex flex-wrap gap-2">
-                          {project.tech.map((tech) => (
-                            <span
-                              key={tech}
-                              className="rounded-full border border-white/[0.08] bg-black/20 px-4 py-2 text-sm text-zinc-300"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
+                        <span className="rounded-full border border-amber-400/20 bg-amber-400/[0.06] px-3 py-1 text-xs text-amber-300">
+                          In Progress
+                        </span>
+
                       </div>
 
-                      <div className="mt-12 flex flex-wrap items-center gap-6">
-                        <a
-                          href="#"
-                          className="text-sm font-semibold text-white transition hover:text-cyan-400"
-                        >
-                          View project ↗
-                        </a>
+                      <h3 className="mt-8 text-4xl font-semibold tracking-[-0.04em] md:text-6xl">
+                        GTEx Gene Expression Research
+                      </h3>
 
-                        <a
-                          href={links.github}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-white"
-                        >
-                          <span>GitHub</span>
+                      <p className="mt-7 text-lg leading-8 text-zinc-500">
+                        Ongoing research using GTEx V11 RNA-seq data to study how
+                        gene expression varies across human tissues.
+                      </p>
 
-                          <GitHubIcon />
-                        </a>
+                      <p className="mt-5 leading-7 text-zinc-600">
+                        The project currently focuses on preparing and cleaning
+                        large gene-expression datasets, organizing genes across
+                        tissues, and building the foundation for tissue-specific
+                        expression analysis.
+                      </p>
+
+                      <div className="mt-8 flex flex-wrap gap-2">
+
+                        {[
+                          "Python",
+                          "Pandas",
+                          "NumPy",
+                          "Matplotlib",
+                          "RNA-seq",
+                          "GTEx V11",
+                        ].map((tech) => (
+
+                          <span
+                            key={tech}
+                            className="rounded-full border border-white/[0.08] px-4 py-2 text-sm text-zinc-300"
+                          >
+                            {tech}
+                          </span>
+
+                        ))}
+
                       </div>
+
                     </div>
 
-                    <div
-                      className={`relative min-h-[460px] overflow-hidden bg-[#111722]/90 ${
-                        index % 2 !== 0
-                          ? "lg:order-1"
-                          : ""
-                      }`}
+                    <a
+                      href={links.gtexResearch}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-12 inline-flex w-fit items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-cyan-300"
                     >
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="h-full min-h-[460px] w-full object-cover opacity-90 transition duration-700 group-hover:scale-[1.04]"
-                      />
 
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                    </div>
+                      <span>
+                        View research on GitHub
+                      </span>
+
+                      <GitHubIcon />
+
+                    </a>
+
                   </div>
-                </motion.article>
-              ))}
+
+                  <ResearchWorkflow />
+
+                </div>
+
+              </motion.article>
+
+              {/* SOCIAL MEDIA */}
+
+              <motion.article
+                initial={{
+                  opacity: 0,
+                  y: 70,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                className="overflow-hidden rounded-[36px] border border-white/[0.08] bg-[#0d1016]/85"
+              >
+
+                <div className="grid lg:grid-cols-2">
+
+                  <div className="relative min-h-[650px] overflow-hidden bg-black">
+
+                    <iframe
+                      src={`${socialMediaPresentation}#toolbar=0&navpanes=0&scrollbar=1`}
+                      title="Social Media Impact Study Presentation"
+                      className="h-[650px] w-full border-0 bg-black"
+                    />
+
+                    <div className="pointer-events-none absolute left-5 top-5 rounded-full border border-white/10 bg-black/75 px-4 py-2 text-xs text-zinc-300">
+                      Scroll through the presentation
+                    </div>
+
+                  </div>
+
+                  <div className="flex min-h-[650px] flex-col justify-between p-9 md:p-14">
+
+                    <div>
+
+                      <div className="flex items-center justify-between gap-4">
+
+                        <p className="text-sm text-cyan-400">
+                          Data Science Project
+                        </p>
+
+                        <span className="rounded-full border border-emerald-400/20 bg-emerald-400/[0.06] px-3 py-1 text-xs text-emerald-300">
+                          Completed
+                        </span>
+
+                      </div>
+
+                      <h3 className="mt-8 text-4xl font-semibold tracking-[-0.04em] md:text-6xl">
+                        Social Media Impact Study
+                      </h3>
+
+                      <p className="mt-7 text-lg leading-8 text-zinc-500">
+                        Analyzed social media usage, mental health, addiction,
+                        and academic performance across teen and student datasets.
+                      </p>
+
+                      <p className="mt-5 leading-7 text-zinc-600">
+                        The project uses exploratory data analysis, correlation
+                        matrices, heatmaps, distributions, boxplots, group
+                        comparisons, and logistic regression.
+                      </p>
+
+                      <div className="mt-8 flex flex-wrap gap-2">
+
+                        {[
+                          "Python",
+                          "Pandas",
+                          "EDA",
+                          "Visualization",
+                          "Statistics",
+                          "Logistic Regression",
+                        ].map((tech) => (
+
+                          <span
+                            key={tech}
+                            className="rounded-full border border-white/[0.08] px-4 py-2 text-sm text-zinc-300"
+                          >
+                            {tech}
+                          </span>
+
+                        ))}
+
+                      </div>
+
+                    </div>
+
+                    <a
+                      href={socialMediaPresentation}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-12 inline-flex w-fit rounded-full border border-white/[0.12] px-6 py-3 text-sm text-white transition hover:bg-white/10"
+                    >
+                      Open full presentation ↗
+                    </a>
+
+                  </div>
+
+                </div>
+
+              </motion.article>
+
             </div>
+
           </div>
+
         </section>
 
         {/* EXPERIENCE */}
@@ -1049,92 +2048,299 @@ export default function Home() {
           id="experience"
           className="px-6 py-36 lg:px-8"
         >
+
           <div className="mx-auto max-w-7xl">
-            <motion.div
-              initial={{
-                opacity: 0,
-                x: 180,
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.25,
-              }}
-              transition={{
-                duration: 1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <SectionLabel>Experience</SectionLabel>
 
-              <h2 className="text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
-                Learning by
+            <SectionLabel>
+              Experience
+            </SectionLabel>
 
-                <span className="block text-zinc-600">
-                  building and doing.
-                </span>
-              </h2>
+            <h2 className="max-w-5xl text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
+              Experience in action.
 
-              <div className="mt-20 rounded-[32px] border border-white/[0.07] bg-[#0d1016]/70 px-7 backdrop-blur-xl md:px-10">
-                {experiences.map((experience, index) => (
-                  <motion.div
-                    key={experience.role}
-                    initial={{
-                      opacity: 0,
-                      x: 120,
-                    }}
-                    whileInView={{
-                      opacity: 1,
-                      x: 0,
-                    }}
-                    viewport={{
-                      once: true,
-                      amount: 0.35,
-                    }}
-                    transition={{
-                      duration: 0.8,
-                      delay: index * 0.08,
-                    }}
-                    className="grid gap-6 border-t border-white/[0.08] py-10 first:border-t-0 md:grid-cols-[190px_1fr]"
-                  >
-                    <p className="text-sm text-zinc-600">
-                      {experience.date}
-                    </p>
+              <span className="block text-zinc-600">
+                Data, research, and real-world problem solving.
+              </span>
 
-                    <div>
-                      <h3 className="text-2xl font-semibold md:text-3xl">
-                        {experience.role}
-                      </h3>
+            </h2>
 
-                      <p className="mt-2 text-cyan-400">
-                        {experience.company}
-                      </p>
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-zinc-500">
+              Research, analytics, and professional experience where I have
+              applied data skills to real projects, operations, and
+              organizational needs.
+            </p>
 
-                      <p className="mt-5 max-w-3xl leading-8 text-zinc-500">
-                        {experience.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+            <div className="mt-20 space-y-6">
+
+              {experiences.map((experience, index) => (
+
+                <ExperienceCard
+                  key={experience.role}
+                  experience={experience}
+                  index={index}
+                />
+
+              ))}
+
+            </div>
+
           </div>
+
         </section>
 
         {/* SKILLS */}
 
         <section
           id="skills"
-          className="px-6 py-36 lg:px-8"
+          className="relative overflow-hidden px-6 py-36 lg:px-8"
         >
+
+          <motion.div
+            animate={{
+              x: [0, 120, -40, 0],
+              y: [0, -30, 70, 0],
+            }}
+            transition={{
+              duration: 18,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="pointer-events-none absolute left-[5%] top-[20%] h-[320px] w-[320px] rounded-full bg-cyan-500/[0.05] blur-[130px]"
+          />
+
+          <motion.div
+            animate={{
+              x: [0, -100, 50, 0],
+              y: [0, 60, -40, 0],
+            }}
+            transition={{
+              duration: 22,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="pointer-events-none absolute bottom-[10%] right-[5%] h-[350px] w-[350px] rounded-full bg-blue-600/[0.05] blur-[140px]"
+          />
+
+          <div className="relative mx-auto max-w-7xl">
+
+            <SectionLabel>
+              Skills
+            </SectionLabel>
+
+            <h2 className="max-w-5xl text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
+              Tools I use to
+
+              <span className="block text-zinc-600">
+                turn ideas into solutions.
+              </span>
+
+            </h2>
+
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-zinc-500">
+              A growing technical toolkit built through coursework, research,
+              internships, analytics projects, and software development.
+            </p>
+
+            <div className="mt-20 grid gap-5 md:grid-cols-2">
+
+              {skills.map((skill, index) => (
+
+                <SkillCard
+                  key={skill.title}
+                  skill={skill}
+                  index={index}
+                />
+
+              ))}
+
+            </div>
+
+            <div className="mt-16 overflow-hidden border-y border-white/[0.06] py-5">
+
+              <motion.div
+                animate={{
+                  x: ["0%", "-50%"],
+                }}
+                transition={{
+                  duration: 25,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                className="flex w-max items-center whitespace-nowrap"
+              >
+
+                {[...marqueeSkills, ...marqueeSkills].map(
+                  (skill, index) => (
+
+                    <div
+                      key={`${skill}-${index}`}
+                      className="flex items-center"
+                    >
+
+                      <span className="px-6 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500">
+                        {skill}
+                      </span>
+
+                      <span className="h-1 w-1 rounded-full bg-cyan-400/50" />
+
+                    </div>
+
+                  )
+                )}
+
+              </motion.div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* EDUCATION */}
+
+        <section className="px-6 py-36 lg:px-8">
+
           <div className="mx-auto max-w-7xl">
+
             <motion.div
               initial={{
                 opacity: 0,
-                y: 70,
+                y: 60,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                duration: 0.75,
+              }}
+              className="relative overflow-hidden rounded-[40px] border border-white/[0.09] bg-[#0d1016]/80 p-9 backdrop-blur-xl md:p-14"
+            >
+
+              <div className="pointer-events-none absolute -right-32 -top-32 h-[380px] w-[380px] rounded-full bg-cyan-500/[0.05] blur-[130px]" />
+
+              <div className="relative">
+
+                <SectionLabel>
+                  Education
+                </SectionLabel>
+
+                <div className="grid gap-14 lg:grid-cols-2">
+
+                  <div>
+
+                    <h2 className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl">
+                      Duquesne University
+                    </h2>
+
+                    <p className="mt-6 text-2xl text-zinc-300">
+                      Bachelor of Science in Data Science
+                    </p>
+
+                    <p className="mt-4 max-w-xl leading-7 text-zinc-500">
+                      Building a strong foundation in data analysis,
+                      statistics, programming, and computational problem solving.
+                    </p>
+
+                    <div className="mt-8 flex flex-wrap gap-3">
+
+                      <span className="rounded-full border border-white/[0.08] bg-black/20 px-4 py-2 text-sm text-zinc-400">
+                        Pittsburgh, Pennsylvania
+                      </span>
+
+                      <span className="rounded-full border border-white/[0.08] bg-black/20 px-4 py-2 text-sm text-zinc-400">
+                        Expected December 2027
+                      </span>
+
+                    </div>
+
+                  </div>
+
+                  <div className="flex items-center">
+
+                    <div className="w-full">
+
+                      <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-400">
+                        Interests & Focus Areas
+                      </p>
+
+                      <p className="mt-4 max-w-lg text-sm leading-6 text-zinc-500">
+                        Areas I&apos;m especially interested in exploring through
+                        coursework, research, internships, and personal projects.
+                      </p>
+
+                      <div className="mt-7 flex flex-wrap gap-3">
+
+                        {[
+                          "Machine Learning",
+                          "Data Analytics",
+                          "Artificial Intelligence",
+                          "Statistical Modeling",
+                          "Data Visualization",
+                          "Research",
+                          "Software Development",
+                          "Predictive Analytics",
+                        ].map((interest, index) => (
+
+                          <motion.span
+                            key={interest}
+                            initial={{
+                              opacity: 0,
+                              y: 12,
+                            }}
+                            whileInView={{
+                              opacity: 1,
+                              y: 0,
+                            }}
+                            whileHover={{
+                              y: -3,
+                              scale: 1.04,
+                            }}
+                            viewport={{
+                              once: true,
+                            }}
+                            transition={{
+                              delay: index * 0.05,
+                            }}
+                            className="rounded-full border border-cyan-400/10 bg-cyan-400/[0.025] px-4 py-2.5 text-sm text-zinc-300 transition-colors hover:border-cyan-400/25 hover:bg-cyan-400/[0.06] hover:text-cyan-200"
+                          >
+                            {interest}
+                          </motion.span>
+
+                        ))}
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </motion.div>
+
+          </div>
+
+        </section>
+
+        {/* CONTACT */}
+
+        <section
+          id="contact"
+          className="px-6 py-40 lg:px-8"
+        >
+
+          <div className="mx-auto max-w-7xl">
+
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 50,
               }}
               whileInView={{
                 opacity: 1,
@@ -1146,223 +2352,305 @@ export default function Home() {
               transition={{
                 duration: 0.8,
               }}
+              className="relative overflow-hidden rounded-[40px] border border-white/[0.08] bg-[#0d1016]/85 px-7 py-16 shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-10 md:px-14 md:py-20"
             >
-              <SectionLabel>Skills</SectionLabel>
 
-              <h2 className="text-5xl font-semibold tracking-[-0.05em] md:text-7xl">
-                Tools I use to
+              <motion.div
+                animate={{
+                  x: [0, 50, -20, 0],
+                  y: [0, 30, -20, 0],
+                }}
+                transition={{
+                  duration: 16,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-cyan-500/[0.06] blur-[130px]"
+              />
 
-                <span className="block text-zinc-600">
-                  solve problems.
-                </span>
-              </h2>
-            </motion.div>
+              <motion.div
+                animate={{
+                  x: [0, -40, 25, 0],
+                  y: [0, -25, 35, 0],
+                }}
+                transition={{
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-violet-500/[0.06] blur-[140px]"
+              />
 
-            <div className="mt-20 grid gap-5 md:grid-cols-2">
-              {skills.map((skill, index) => (
-                <motion.div
-                  key={skill.title}
-                  initial={{
-                    opacity: 0,
-                    y: 60,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                  }}
-                  transition={{
-                    duration: 0.7,
-                    delay: index * 0.08,
-                  }}
-                  className="rounded-[30px] border border-white/[0.08] bg-[#0d1016]/75 p-8 backdrop-blur-xl"
-                >
-                  <h3 className="text-2xl font-semibold">
-                    {skill.title}
-                  </h3>
+              <div className="relative">
 
-                  <div className="mt-7 flex flex-wrap gap-2">
-                    {skill.items.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-white/[0.07] bg-black/20 px-4 py-2 text-sm text-zinc-400"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+                <div className="text-center">
 
-        {/* EDUCATION */}
+                  <SectionLabel>
+                    Let&apos;s Connect
+                  </SectionLabel>
 
-        <section className="px-6 py-36 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <motion.div
-              initial={{
-                opacity: 0,
-                x: 200,
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.3,
-              }}
-              transition={{
-                duration: 1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="rounded-[40px] border border-white/[0.09] bg-[#0d1016]/80 p-9 backdrop-blur-xl md:p-14"
-            >
-              <SectionLabel>Education</SectionLabel>
+                  <h2 className="mx-auto max-w-5xl overflow-visible pb-6 text-5xl font-semibold leading-[1.1] tracking-[-0.055em] md:text-7xl lg:text-[82px]">
 
-              <div className="grid gap-14 lg:grid-cols-2">
-                <div>
-                  <h2 className="text-4xl font-semibold tracking-[-0.04em] md:text-6xl">
-                    Duquesne University
+                    Let&apos;s create
+
+                    <span className="block overflow-visible bg-gradient-to-r from-cyan-300 via-blue-300 to-violet-400 bg-clip-text pb-6 pt-1 leading-[1.2] text-transparent">
+                      something meaningful.
+                    </span>
+
                   </h2>
 
-                  <p className="mt-6 text-2xl text-zinc-300">
-                    Bachelor of Science in Data Science
+                  <p className="mx-auto mt-2 max-w-3xl text-base leading-8 text-zinc-400 md:text-lg">
+                    I&apos;m interested in internships, research opportunities,
+                    and collaborative projects where I can apply data science,
+                    analytics, machine learning, and software development.
                   </p>
 
-                  <p className="mt-3 text-zinc-500">
-                    Pittsburgh, Pennsylvania
-                  </p>
+                  <div className="mt-8 flex flex-wrap justify-center gap-3">
 
-                  <p className="mt-2 text-zinc-500">
-                    Expected December 2027
-                  </p>
-                </div>
+                    {[
+                      "Internships",
+                      "Research",
+                      "Data Science Projects",
+                    ].map((item) => (
 
-                <div className="flex items-end">
-                  <div>
-                    <p className="text-sm uppercase tracking-[0.25em] text-zinc-600">
-                      Areas of Study
-                    </p>
+                      <motion.span
+                        key={item}
+                        whileHover={{
+                          y: -2,
+                        }}
+                        className="rounded-full border border-cyan-400/15 bg-cyan-400/[0.04] px-4 py-2 text-xs font-medium text-cyan-200"
+                      >
+                        {item}
+                      </motion.span>
 
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {[
-                        "Data Science",
-                        "Statistics",
-                        "Probability",
-                        "Linear Algebra",
-                        "Programming",
-                        "Algorithms",
-                      ].map((course) => (
-                        <span
-                          key={course}
-                          className="rounded-full border border-white/[0.08] bg-black/20 px-4 py-2 text-sm text-zinc-400"
-                        >
-                          {course}
-                        </span>
-                      ))}
-                    </div>
+                    ))}
+
                   </div>
+
                 </div>
+
+                {/* CONTACT CARDS */}
+
+                <div className="mt-16 grid gap-5 md:grid-cols-3">
+
+                  {/* EMAIL */}
+
+                  <motion.a
+                    href={links.email}
+                    initial={{
+                      opacity: 0,
+                      y: 30,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    viewport={{
+                      once: true,
+                    }}
+                    transition={{
+                      duration: 0.6,
+                    }}
+                    whileHover={{
+                      y: -6,
+                    }}
+                    className="group relative flex min-h-[235px] flex-col justify-between overflow-hidden rounded-[28px] border border-white/[0.07] bg-black/20 p-7 text-left transition duration-300 hover:border-cyan-400/20 hover:bg-white/[0.025]"
+                  >
+
+                    <div>
+
+                      <div className="flex items-start justify-between">
+
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300">
+                          <EmailIcon />
+                        </div>
+
+                        <span className="text-zinc-700 transition duration-300 group-hover:translate-x-1 group-hover:text-cyan-300">
+                          <ArrowIcon />
+                        </span>
+
+                      </div>
+
+                      <p className="mt-7 text-lg font-semibold text-white">
+                        Email
+                      </p>
+
+                      <p className="mt-3 text-sm leading-6 text-zinc-500">
+                        For professional opportunities, research, and project
+                        inquiries.
+                      </p>
+
+                    </div>
+
+                    <div className="mt-7 flex items-center justify-between border-t border-white/[0.06] pt-5">
+
+                      <span className="text-sm font-semibold text-cyan-300">
+                        Contact me
+                      </span>
+
+                      <EmailIcon />
+
+                    </div>
+
+                  </motion.a>
+
+                  {/* LINKEDIN */}
+
+                  <motion.a
+                    href={links.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    initial={{
+                      opacity: 0,
+                      y: 30,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    viewport={{
+                      once: true,
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.08,
+                    }}
+                    whileHover={{
+                      y: -6,
+                    }}
+                    className="group relative flex min-h-[235px] flex-col justify-between overflow-hidden rounded-[28px] border border-white/[0.07] bg-black/20 p-7 text-left transition duration-300 hover:border-cyan-400/20 hover:bg-white/[0.025]"
+                  >
+
+                    <div>
+
+                      <div className="flex items-start justify-between">
+
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300">
+                          <LinkedInIcon />
+                        </div>
+
+                        <span className="text-zinc-700 transition duration-300 group-hover:translate-x-1 group-hover:text-cyan-300">
+                          <ArrowIcon />
+                        </span>
+
+                      </div>
+
+                      <p className="mt-7 text-lg font-semibold text-white">
+                        LinkedIn
+                      </p>
+
+                      <p className="mt-3 text-sm leading-6 text-zinc-500">
+                        Professional experience, background, and career
+                        updates.
+                      </p>
+
+                    </div>
+
+                    <div className="mt-7 flex items-center justify-between border-t border-white/[0.06] pt-5">
+
+                      <span className="text-sm font-semibold text-cyan-300">
+                        LinkedIn
+                      </span>
+
+                      <LinkedInIcon />
+
+                    </div>
+
+                  </motion.a>
+
+                  {/* GITHUB */}
+
+                  <motion.a
+                    href={links.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    initial={{
+                      opacity: 0,
+                      y: 30,
+                    }}
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    viewport={{
+                      once: true,
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.16,
+                    }}
+                    whileHover={{
+                      y: -6,
+                    }}
+                    className="group relative flex min-h-[235px] flex-col justify-between overflow-hidden rounded-[28px] border border-white/[0.07] bg-black/20 p-7 text-left transition duration-300 hover:border-cyan-400/20 hover:bg-white/[0.025]"
+                  >
+
+                    <div>
+
+                      <div className="flex items-start justify-between">
+
+                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.05] text-cyan-300">
+                          <GitHubIcon />
+                        </div>
+
+                        <span className="text-zinc-700 transition duration-300 group-hover:translate-x-1 group-hover:text-cyan-300">
+                          <ArrowIcon />
+                        </span>
+
+                      </div>
+
+                      <p className="mt-7 text-lg font-semibold text-white">
+                        GitHub
+                      </p>
+
+                      <p className="mt-3 text-sm leading-6 text-zinc-500">
+                        Research, data science projects, and software
+                        development work.
+                      </p>
+
+                    </div>
+
+                    <div className="mt-7 flex items-center justify-between border-t border-white/[0.06] pt-5">
+
+                      <span className="text-sm font-semibold text-cyan-300">
+                        GitHub
+                      </span>
+
+                      <GitHubIcon />
+
+                    </div>
+
+                  </motion.a>
+
+                </div>
+
               </div>
+
             </motion.div>
+
           </div>
-        </section>
 
-        {/* CONTACT */}
-
-        <section
-          id="contact"
-          className="relative px-6 py-44 lg:px-8"
-        >
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 80,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-              amount: 0.3,
-            }}
-            transition={{
-              duration: 0.9,
-            }}
-            className="relative mx-auto max-w-5xl text-center"
-          >
-            <SectionLabel>
-              Let&apos;s Connect
-            </SectionLabel>
-
-            <h2 className="text-6xl font-semibold tracking-[-0.06em] md:text-8xl lg:text-9xl">
-              Let&apos;s build
-
-              <span className="block bg-gradient-to-r from-blue-300 via-cyan-300 to-violet-400 bg-clip-text text-transparent">
-                something useful.
-              </span>
-            </h2>
-
-            <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-zinc-500">
-              I&apos;m interested in opportunities involving data science,
-              analytics, machine learning, research, and software
-              development.
-            </p>
-
-            <div className="mt-12 flex flex-wrap justify-center gap-4">
-              <a
-                href={links.email}
-                className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-black transition duration-300 hover:scale-105 hover:bg-cyan-300"
-              >
-                <span>Email me</span>
-                <EmailIcon />
-              </a>
-
-              <a
-                href={links.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/20 px-8 py-4 font-semibold backdrop-blur-lg transition duration-300 hover:scale-105 hover:bg-white/10"
-              >
-                <span>LinkedIn</span>
-                <LinkedInIcon />
-              </a>
-
-              <a
-                href={links.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/20 px-8 py-4 font-semibold backdrop-blur-lg transition duration-300 hover:scale-105 hover:bg-white/10"
-              >
-                <span>GitHub</span>
-                <GitHubIcon />
-              </a>
-            </div>
-          </motion.div>
         </section>
 
         {/* FOOTER */}
 
-        <footer className="border-t border-white/[0.07] bg-[#07090d]/60 px-6 py-10 backdrop-blur-xl lg:px-8">
-          <div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 text-sm text-zinc-600 md:flex-row">
-            <p>© 2026 El Mehdi Bensouda</p>
+        <footer className="border-t border-white/[0.07] bg-[#07090d]/70 px-6 py-10 backdrop-blur-xl lg:px-8">
 
-            <div className="flex flex-wrap items-center gap-6">
-              <a
-                href={links.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 transition hover:text-white"
-              >
-                <span>GitHub</span>
-                <GitHubIcon />
-              </a>
+          <div className="mx-auto flex max-w-7xl flex-col gap-7 md:flex-row md:items-center md:justify-between">
+
+            <div>
+
+              <p className="text-base font-semibold tracking-[-0.01em] text-white">
+                El Mehdi Bensouda
+              </p>
+
+              <p className="mt-1 text-sm text-zinc-500">
+                Data Science
+              </p>
+
+            </div>
+
+            <div className="flex flex-wrap items-center gap-6 text-sm text-zinc-500">
 
               <a
                 href={links.linkedin}
@@ -1370,16 +2658,28 @@ export default function Home() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 transition hover:text-white"
               >
-                <span>LinkedIn</span>
+
+                <span>
+                  LinkedIn
+                </span>
+
                 <LinkedInIcon />
+
               </a>
 
               <a
-                href={links.email}
+                href={links.github}
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center gap-1.5 transition hover:text-white"
               >
-                <span>Email</span>
-                <EmailIcon />
+
+                <span>
+                  GitHub
+                </span>
+
+                <GitHubIcon />
+
               </a>
 
               <a
@@ -1390,10 +2690,30 @@ export default function Home() {
               >
                 Resume
               </a>
+
+              <a
+                href="#home"
+                className="transition hover:text-cyan-300"
+              >
+                Back to top ↑
+              </a>
+
             </div>
+
           </div>
+
+          <div className="mx-auto mt-8 max-w-7xl border-t border-white/[0.05] pt-6">
+
+            <p className="text-xs text-zinc-700">
+              © 2026 El Mehdi Bensouda
+            </p>
+
+          </div>
+
         </footer>
+
       </div>
+
     </main>
   );
 }
